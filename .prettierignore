@@ -1,0 +1,28 @@
+# Dependencies
+node_modules
+.pnpm-store
+
+# Build outputs
+.next
+out
+build
+dist
+coverage
+
+# Lockfiles
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+
+# Generated
+*.tsbuildinfo
+next-env.d.ts
+
+# Misc
+.husky/_
+public
+
+# Agent skills (third-party; do not reformat)
+.agents
+.claude
+skills-lock.json

@@ -1,36 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio
 
-## Getting Started
+Production-ready Next.js portfolio starter with Tailwind CSS, shadcn/ui, and strict quality tooling.
 
-First, run the development server:
+## Stack
+
+- **Next.js 16** (App Router, Turbopack)
+- **React 19** + **TypeScript** (strict)
+- **Tailwind CSS v4**
+- **shadcn/ui** (base-nova style)
+- **pnpm** package manager
+
+## Quality tooling
+
+| Tool         | Purpose                                    |
+| ------------ | ------------------------------------------ |
+| ESLint       | Next.js core-web-vitals + TypeScript rules |
+| Prettier     | Formatting + Tailwind class sorting        |
+| Husky        | Git hooks                                  |
+| lint-staged  | Lint/format only staged files on commit    |
+| Commitlint   | Conventional commit messages               |
+| EditorConfig | Consistent editor basics                   |
+
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command             | Description                     |
+| ------------------- | ------------------------------- |
+| `pnpm dev`          | Start dev server (Turbopack)    |
+| `pnpm build`        | Production build                |
+| `pnpm start`        | Start production server         |
+| `pnpm lint`         | Run ESLint                      |
+| `pnpm lint:fix`     | Fix ESLint issues               |
+| `pnpm format`       | Format with Prettier            |
+| `pnpm format:check` | Check formatting                |
+| `pnpm typecheck`    | TypeScript `tsc --noEmit`       |
+| `pnpm check`        | typecheck + lint + format check |
 
-## Learn More
+## shadcn/ui
 
-To learn more about Next.js, take a look at the following resources:
+Components live under `src/components/ui`. Add more with:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+pnpm dlx shadcn@latest add button card
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Config: `components.json`.
 
-## Deploy on Vercel
+## Agent skills
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Installed under `.agents/skills/`:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `frontend-design` (Anthropic)
+- `vercel-react-best-practices` (Vercel)
+- `web-design-guidelines` (Vercel)
+
+## Commit style
+
+Use [Conventional Commits](https://www.conventionalcommits.org/):
+
+```text
+feat: add hero section
+fix: correct contact form validation
+chore: update dependencies
+```
+
+Pre-commit runs lint-staged. Commit messages are validated by commitlint.
+
+## Environment
+
+Copy `.env.example` to `.env.local` and fill in values as needed.
