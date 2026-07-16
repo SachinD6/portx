@@ -1,0 +1,5 @@
+# Cloudflare Pages redirects
+# SPA-style fallback not needed for fully static Next export with trailingSlash.
+# Keep file for future custom domain redirects.
+
+# Example custom domain force-HTTPS is handled by Cloudflare SSL automatically.

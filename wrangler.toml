@@ -1,0 +1,14 @@
+# Cloudflare Pages project configuration
+# https://developers.cloudflare.com/pages/functions/wrangler-configuration/
+#
+# Used by Wrangler CLI for local preview + CI deploys.
+# Project name must match the Cloudflare Pages project.
+
+name = "portx"
+compatibility_date = "2025-10-01"
+pages_build_output_dir = "out"
+
+# Optional: bind later if you add Pages Functions
+# [[kv_namespaces]]
+# binding = "PORTX_KV"
+# id = "your_kv_id"

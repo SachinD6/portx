@@ -7,3 +7,5 @@ export { experience } from "./experience";
 export { skills } from "./skills";
 export { socials } from "./socials";
 export { approach } from "./approach";
+export { stats } from "./stats";
+export type { StatItem } from "./stats";

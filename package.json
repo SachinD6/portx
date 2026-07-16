@@ -12,6 +12,9 @@
     "format:check": "prettier --check .",
     "typecheck": "tsc --noEmit",
     "check": "pnpm typecheck && pnpm lint && pnpm format:check",
+    "pages:build": "next build",
+    "pages:preview": "pnpm pages:build && wrangler pages dev out",
+    "pages:deploy": "pnpm pages:build && wrangler pages deploy out --project-name=portx",
     "prepare": "husky"
   },
   "lint-staged": {
@@ -61,6 +64,7 @@
     "prettier": "^3.9.5",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wrangler": "^4.111.0"
   }
 }

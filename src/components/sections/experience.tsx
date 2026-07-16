@@ -1,40 +1,38 @@
 import { Section } from "@/components/layout/section";
 import { Reveal } from "@/components/ui/reveal";
+import { SectionHeading } from "@/components/ui/section-heading";
 import { experience } from "@/data";
 
 export function Experience() {
   return (
     <Section id="experience" ariaLabelledBy="experience-heading">
-      <Reveal className="mb-12 text-center">
-        <p className="mb-3 text-[11px] font-medium tracking-[0.2em] text-muted-foreground uppercase">
-          Experience
-        </p>
-        <h2
+      <Reveal>
+        <SectionHeading
           id="experience-heading"
-          className="font-display text-3xl tracking-tight text-foreground sm:text-4xl"
-        >
-          Where I&apos;ve been
-        </h2>
+          index="03"
+          eyebrow="Experience"
+          title="Where I've been"
+        />
       </Reveal>
 
       <div className="relative">
         <div
-          className="absolute top-3 bottom-3 left-[0.7rem] w-px bg-border"
+          className="absolute top-2 bottom-2 left-[0.7rem] w-px bg-border"
           aria-hidden="true"
         />
 
-        <ul className="space-y-5">
+        <ul className="space-y-3">
           {experience.map((item, index) => (
-            <Reveal key={item.id} as="li" delay={index * 0.06}>
+            <Reveal key={item.id} as="li" delay={index * 0.05}>
               <div className="relative pl-8">
                 <span
-                  className="absolute top-6 left-[0.45rem] size-2.5 rounded-full border-2 border-background bg-primary"
+                  className="absolute top-5 left-[0.45rem] size-2.5 rounded-full border-2 border-background bg-primary shadow-[0_0_0_3px_color-mix(in_oklch,var(--primary)_12%,transparent)]"
                   aria-hidden="true"
                 />
-                <div className="double-bezel">
-                  <div className="double-bezel-inner p-5 sm:p-6">
-                    <div className="flex flex-wrap items-baseline justify-between gap-2">
-                      <p className="text-xs font-medium tracking-wide text-muted-foreground">
+                <div className="group double-bezel">
+                  <div className="double-bezel-inner p-4 sm:p-5">
+                    <div className="relative z-[1] flex flex-wrap items-baseline justify-between gap-2">
+                      <p className="font-mono text-[11px] tracking-wide text-muted-foreground">
                         {item.start} — {item.end}
                       </p>
                       {item.location ? (
@@ -43,17 +41,17 @@ export function Experience() {
                         </p>
                       ) : null}
                     </div>
-                    <h3 className="mt-2 text-lg font-medium tracking-tight text-foreground">
+                    <h3 className="relative z-[1] mt-1.5 text-base font-medium tracking-tight text-foreground sm:text-lg">
                       {item.role}
                     </h3>
-                    <p className="mt-1 text-sm text-muted-foreground">
+                    <p className="relative z-[1] text-sm text-muted-foreground">
                       {item.company}
                     </p>
-                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                    <p className="relative z-[1] mt-2 text-sm leading-relaxed text-muted-foreground">
                       {item.description}
                     </p>
                     {item.highlights?.length ? (
-                      <ul className="mt-4 space-y-1.5">
+                      <ul className="relative z-[1] mt-3 space-y-1">
                         {item.highlights.map((highlight) => (
                           <li
                             key={highlight}
