@@ -6,16 +6,16 @@ export const person: Person = {
   lastName: "Duhan",
   role: "Product Engineer",
   headline:
-    "I design and ship product interfaces with systems depth—React, Next.js, and the APIs that power them.",
+    "I ship products people actually use—like FresherGo (12k+ visits/mo)—with React, Next.js, and the systems that keep them running.",
   positioning:
-    "Frontend-focused product engineer for teams that care about craft, clarity, and measurable outcomes—not generic full-stack labels.",
-  bio: "I care about the path from problem to shipped interface: clear defaults, honest empty states, and services that stay understandable under load. I want work where product thinking and engineering sit in the same seat.",
+    "Product engineer who builds and grows independent products end-to-end: discovery, interfaces, data pipelines, SEO, and distribution—not resume-only demos.",
+  bio: "I care about the path from problem to shipped product: clear defaults, honest empty states, and services that stay understandable under load. Right now that looks like FresherGo for entry-level tech jobs, TopTools for autonomous SEO tools, and deeper infra work on graph-backed code understanding.",
   location: "India",
-  email: "hello@sachinduhan.dev",
+  email: "sachinduhan.work@gmail.com",
   githubUsername: "SachinD6",
   availability: {
     status: "available",
-    label: "Open to product engineering roles",
+    label: "Available for work",
   },
   resumeUrl: "/resume.pdf",
 };

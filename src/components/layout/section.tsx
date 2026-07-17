@@ -21,9 +21,12 @@ export function Section({
     <section
       id={id}
       aria-labelledby={ariaLabelledBy}
-      className={cn("section-pad scroll-mt-28", className)}
+      className={cn(
+        "section-pad scroll-mt-[max(7rem,calc(5.5rem+env(safe-area-inset-top,0px)))]",
+        className,
+      )}
     >
-      <div className={cn(wide ? "content-wide" : "content-shell")}>
+      <div className={cn("min-w-0", wide ? "content-wide" : "content-shell")}>
         {children}
       </div>
     </section>
