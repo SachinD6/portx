@@ -6,11 +6,10 @@ import { Section } from "@/components/layout/section";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { experience } from "@/data";
-import { cn } from "@/lib/utils";
+import { springSoft } from "@/lib/motion";
 
 /**
- * Job history — primary signal for recruiters (ramx / chanhdai style).
- * Placed near the top of the page on purpose.
+ * Job history — same double-bezel surface language as work cards.
  */
 export function Experience() {
   const reduceMotion = useReducedMotion();
@@ -32,45 +31,22 @@ export function Experience() {
           <Reveal key={item.id} as="li" delay={index * 0.05}>
             <motion.article
               whileHover={
-                reduceMotion
-                  ? undefined
-                  : {
-                      y: -2,
-                      transition: {
-                        type: "spring",
-                        stiffness: 400,
-                        damping: 30,
-                      },
-                    }
+                reduceMotion ? undefined : { y: -3, transition: springSoft }
               }
-              className={cn(
-                "group relative overflow-hidden rounded-2xl border border-border bg-surface-elevated/90",
-                "transition-[border-color,box-shadow] duration-300 ease-[var(--ease-out-soft)]",
-                "hover:border-foreground/15 hover:shadow-[0_16px_40px_color-mix(in_oklch,var(--foreground)_5%,transparent)]",
-              )}
+              className="group double-bezel"
             >
-              {/* Current accent bar */}
-              {item.current ? (
-                <span
-                  className="absolute inset-y-0 left-0 w-0.5 bg-primary"
-                  aria-hidden="true"
-                />
-              ) : null}
-
-              <div className="p-5 sm:p-6">
+              <div className="double-bezel-inner relative p-5 sm:p-6">
                 <div className="flex flex-wrap items-start justify-between gap-3">
-                  <div className="min-w-0">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <h3 className="text-base font-semibold tracking-tight text-foreground sm:text-lg">
-                        {item.role}
-                      </h3>
-                      {item.current ? (
-                        <span className="rounded-full bg-success/10 px-2 py-0.5 text-[10px] font-medium tracking-wide text-success uppercase">
-                          Current
-                        </span>
-                      ) : null}
-                    </div>
-                    <p className="mt-1 text-sm text-foreground/90">
+                  <div className="min-w-0 space-y-1">
+                    {item.current ? (
+                      <p className="inline-flex rounded-full border border-border bg-background/70 px-2.5 py-1 text-[10px] font-medium tracking-[0.12em] text-muted-foreground uppercase">
+                        Current
+                      </p>
+                    ) : null}
+                    <h3 className="font-display text-xl tracking-tight text-foreground sm:text-2xl">
+                      {item.role}
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
                       {item.companyUrl ? (
                         <a
                           href={item.companyUrl}
@@ -83,53 +59,63 @@ export function Experience() {
                       ) : (
                         item.company
                       )}
+                      <span className="mx-1.5 text-border" aria-hidden="true">
+                        ·
+                      </span>
+                      <span className="font-mono text-xs">
+                        {item.start} — {item.end}
+                      </span>
                     </p>
                   </div>
-
-                  <div className="text-left sm:text-right">
-                    <p className="font-mono text-[11px] text-muted-foreground tabular-nums">
-                      {item.start} — {item.end}
-                    </p>
-                    <p className="mt-1 text-xs text-muted-foreground">
-                      {[item.location, item.locationType, item.employmentType]
-                        .filter(Boolean)
-                        .join(" · ")}
-                    </p>
-                  </div>
+                  <span className="font-mono text-xs text-muted-foreground">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
                 </div>
 
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                <p className="mt-3 max-w-prose text-sm leading-relaxed text-muted-foreground">
                   {item.description}
                 </p>
 
                 {item.highlights?.length ? (
-                  <ul className="mt-3 space-y-1.5">
+                  <ul className="mt-4 space-y-2 border-t border-border/70 pt-4">
                     {item.highlights.map((highlight) => (
                       <li
                         key={highlight}
-                        className="flex gap-2 text-sm text-foreground/85"
+                        className="flex gap-2.5 text-sm leading-relaxed text-foreground/90"
                       >
                         <span
                           className="mt-2 size-1 shrink-0 rounded-full bg-primary/70"
                           aria-hidden="true"
                         />
-                        {highlight}
+                        <span>{highlight}</span>
                       </li>
                     ))}
                   </ul>
                 ) : null}
 
+                <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2">
+                  {(item.location ||
+                    item.locationType ||
+                    item.employmentType) && (
+                    <p className="text-xs text-muted-foreground">
+                      {[item.location, item.locationType, item.employmentType]
+                        .filter(Boolean)
+                        .join(" · ")}
+                    </p>
+                  )}
+                </div>
+
                 {item.stack?.length ? (
-                  <ul className="mt-4 flex flex-wrap gap-1.5">
+                  <div className="mt-3 flex flex-wrap gap-1.5">
                     {item.stack.map((tech) => (
-                      <li
+                      <span
                         key={tech}
-                        className="rounded-full border border-border bg-background/80 px-2.5 py-1 text-[11px] text-muted-foreground transition-colors group-hover:border-border group-hover:text-foreground/80"
+                        className="rounded-full border border-border bg-background/60 px-2.5 py-1 text-[11px] tracking-wide text-muted-foreground"
                       >
                         {tech}
-                      </li>
+                      </span>
                     ))}
-                  </ul>
+                  </div>
                 ) : null}
               </div>
             </motion.article>

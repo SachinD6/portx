@@ -44,68 +44,70 @@ export function Contact() {
       </Reveal>
 
       <Reveal>
-        <div className="rounded-2xl border border-border bg-surface-elevated/80 p-5 sm:p-6">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="relative flex size-2" aria-hidden="true">
-              <span className="absolute inline-flex size-full animate-ping rounded-full bg-success-soft opacity-75" />
-              <span className="relative size-2 rounded-full bg-success" />
-            </span>
-            <p className="text-[11px] font-medium tracking-[0.14em] text-muted-foreground uppercase">
-              {person.availability.label}
-            </p>
-          </div>
+        <div className="double-bezel">
+          <div className="double-bezel-inner p-5 sm:p-6">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="relative flex size-2" aria-hidden="true">
+                <span className="absolute inline-flex size-full animate-ping rounded-full bg-success-soft opacity-75" />
+                <span className="relative size-2 rounded-full bg-success" />
+              </span>
+              <p className="text-[11px] font-medium tracking-[0.14em] text-muted-foreground uppercase">
+                {person.availability.label}
+              </p>
+            </div>
 
-          <div className="mt-5 flex flex-col gap-2.5 sm:flex-row sm:flex-wrap">
-            {product.bookingUrl ? (
-              <MagneticButton href={product.bookingUrl} external>
-                {product.bookingLabel}
-              </MagneticButton>
-            ) : null}
-            <MagneticButton
-              onClick={handleCopyEmail}
-              variant={product.bookingUrl ? "secondary" : "primary"}
-              showArrow={!product.bookingUrl}
-            >
-              Copy email
-            </MagneticButton>
-            {person.resumeUrl ? (
+            <div className="mt-5 flex flex-col gap-2.5 sm:flex-row sm:flex-wrap">
+              {product.bookingUrl ? (
+                <MagneticButton href={product.bookingUrl} external>
+                  {product.bookingLabel}
+                </MagneticButton>
+              ) : null}
               <MagneticButton
-                href={person.resumeUrl}
-                variant="ghost"
-                external
-                showArrow={false}
+                onClick={handleCopyEmail}
+                variant={product.bookingUrl ? "secondary" : "primary"}
+                showArrow={!product.bookingUrl}
               >
-                Resume
+                Copy email
               </MagneticButton>
-            ) : null}
+              {person.resumeUrl ? (
+                <MagneticButton
+                  href={person.resumeUrl}
+                  variant="ghost"
+                  external
+                  showArrow={false}
+                >
+                  Resume
+                </MagneticButton>
+              ) : null}
+            </div>
+
+            <p className="mt-3 font-mono text-xs text-muted-foreground">
+              {person.email}
+            </p>
+
+            <ul className="mt-6 flex flex-wrap gap-2 border-t border-border/70 pt-5">
+              {contactSocials.map((social) => {
+                const Icon = iconMap[social.icon as keyof typeof iconMap];
+                if (!Icon) return null;
+                return (
+                  <li key={social.id}>
+                    <a
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={cn(
+                        "inline-flex items-center gap-2 rounded-full border border-border bg-background/60 px-3 py-1.5 text-xs text-muted-foreground",
+                        "transition-all duration-300 hover:-translate-y-0.5 hover:bg-foreground hover:text-background",
+                      )}
+                    >
+                      <Icon className="size-3.5" />
+                      {social.label}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
-
-          <p className="mt-3 font-mono text-xs text-muted-foreground">
-            {person.email}
-          </p>
-
-          <ul className="mt-6 flex flex-wrap gap-2 border-t border-border pt-5">
-            {contactSocials.map((social) => {
-              const Icon = iconMap[social.icon as keyof typeof iconMap];
-              if (!Icon) return null;
-              return (
-                <li key={social.id}>
-                  <a
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={cn(
-                      "inline-flex items-center gap-2 rounded-full border border-border bg-background/70 px-3 py-1.5 text-xs text-muted-foreground",
-                      "transition-all duration-300 hover:-translate-y-0.5 hover:bg-foreground hover:text-background",
-                    )}
-                  >
-                    <Icon className="size-3.5" />
-                    {social.label}
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
         </div>
       </Reveal>
     </Section>

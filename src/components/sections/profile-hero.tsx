@@ -26,8 +26,7 @@ const iconMap = {
 } as const;
 
 /**
- * Compact profile intro inspired by chanhdai.com / ramx.in —
- * identity + overview + socials, not a full-viewport marketing hero.
+ * Compact profile intro — open overview (no wrapped card), consistent chips/CTAs.
  */
 export function ProfileHero() {
   const reduceMotion = useReducedMotion();
@@ -100,18 +99,23 @@ export function ProfileHero() {
           </div>
         </motion.div>
 
-        {/* Overview panel — chanhdai-style facts */}
+        {/* Overview — open rows, no enclosing card */}
         <motion.div
           variants={reduceMotion ? undefined : fadeUp}
-          className="mt-7 overflow-hidden rounded-2xl border border-border bg-surface-elevated/80"
+          className="mt-8"
         >
-          <div className="border-b border-border px-4 py-2.5 sm:px-5">
-            <p className="text-[11px] font-medium tracking-[0.14em] text-muted-foreground uppercase">
+          <div className="mb-3 flex items-center gap-2.5">
+            <p className="text-[11px] font-medium tracking-[0.16em] text-muted-foreground uppercase">
               Overview
             </p>
+            <span
+              className="h-px max-w-12 min-w-6 flex-1 bg-border"
+              aria-hidden="true"
+            />
           </div>
-          <dl className="divide-y divide-border">
-            <div className="grid gap-1 px-4 py-3 sm:grid-cols-[7.5rem_1fr] sm:gap-4 sm:px-5">
+
+          <dl className="space-y-3">
+            <div className="grid gap-0.5 sm:grid-cols-[6.5rem_1fr] sm:items-baseline sm:gap-6">
               <dt className="text-xs text-muted-foreground">Role</dt>
               <dd className="text-sm text-foreground">
                 <span className="font-medium">{person.role}</span>
@@ -128,15 +132,17 @@ export function ProfileHero() {
                 ) : null}
               </dd>
             </div>
-            <div className="grid gap-1 px-4 py-3 sm:grid-cols-[7.5rem_1fr] sm:gap-4 sm:px-5">
+            <div className="grid gap-0.5 sm:grid-cols-[6.5rem_1fr] sm:items-baseline sm:gap-6">
               <dt className="text-xs text-muted-foreground">Focus</dt>
-              <dd className="text-sm text-foreground">{person.positioning}</dd>
+              <dd className="text-sm leading-relaxed text-foreground/90">
+                {person.positioning}
+              </dd>
             </div>
-            <div className="grid gap-1 px-4 py-3 sm:grid-cols-[7.5rem_1fr] sm:gap-4 sm:px-5">
+            <div className="grid gap-0.5 sm:grid-cols-[6.5rem_1fr] sm:items-baseline sm:gap-6">
               <dt className="text-xs text-muted-foreground">Location</dt>
               <dd className="text-sm text-foreground">{person.location}</dd>
             </div>
-            <div className="grid gap-1 px-4 py-3 sm:grid-cols-[7.5rem_1fr] sm:gap-4 sm:px-5">
+            <div className="grid gap-0.5 sm:grid-cols-[6.5rem_1fr] sm:items-baseline sm:gap-6">
               <dt className="text-xs text-muted-foreground">Email</dt>
               <dd className="text-sm">
                 <button
@@ -151,10 +157,10 @@ export function ProfileHero() {
           </dl>
         </motion.div>
 
-        {/* Social row */}
+        {/* Social row — same chip language as rest of site */}
         <motion.ul
           variants={reduceMotion ? undefined : fadeUp}
-          className="mt-5 flex flex-wrap gap-2"
+          className="mt-6 flex flex-wrap gap-2"
         >
           {socials.map((social) => {
             const Icon = iconMap[social.icon];
@@ -180,7 +186,6 @@ export function ProfileHero() {
           })}
         </motion.ul>
 
-        {/* Bio */}
         <motion.p
           variants={reduceMotion ? undefined : fadeUp}
           className="mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-[0.95rem]"
@@ -188,7 +193,6 @@ export function ProfileHero() {
           {person.bio}
         </motion.p>
 
-        {/* CTAs */}
         <motion.div
           variants={reduceMotion ? undefined : fadeUp}
           className="mt-6 flex flex-wrap gap-2.5"
