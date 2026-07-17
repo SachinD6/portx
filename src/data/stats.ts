@@ -5,8 +5,8 @@ export type StatItem = {
 };
 
 export const stats: StatItem[] = [
-  { id: "focus", label: "Focus", value: "Product software" },
-  { id: "mode", label: "Mode", value: "End-to-end" },
+  { id: "focus", label: "Lane", value: "Product interfaces" },
+  { id: "mode", label: "Depth", value: "UI + APIs" },
   { id: "craft", label: "Craft", value: "Clarity & speed" },
-  { id: "status", label: "Status", value: "Open to work" },
+  { id: "status", label: "Status", value: "Open to roles" },
 ];

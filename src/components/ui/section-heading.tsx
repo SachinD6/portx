@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 
 type SectionHeadingProps = {
   eyebrow: string;
-  title: string;
+  title?: string;
   description?: string;
   id: string;
   index?: string;
@@ -13,6 +13,10 @@ type SectionHeadingProps = {
   children?: ReactNode;
 };
 
+/**
+ * Chanhdai-style section labels: mono index + quiet eyebrow, optional title.
+ * Default left-aligned for document-like scan.
+ */
 export function SectionHeading({
   eyebrow,
   title,
@@ -20,7 +24,7 @@ export function SectionHeading({
   id,
   index,
   className,
-  align = "center",
+  align = "left",
 }: SectionHeadingProps) {
   return (
     <div
@@ -32,33 +36,38 @@ export function SectionHeading({
     >
       <div
         className={cn(
-          "mb-2.5 flex items-center gap-3",
+          "mb-2 flex items-center gap-2.5",
           align === "center" ? "justify-center" : "justify-start",
         )}
       >
         {index ? (
-          <span className="font-mono text-[11px] tracking-wide text-muted-foreground">
+          <span className="font-mono text-[11px] text-muted-foreground tabular-nums">
             {index}
           </span>
         ) : null}
-        <p className="text-[11px] font-medium tracking-[0.2em] text-muted-foreground uppercase">
+        <p
+          id={title ? undefined : id}
+          className="text-[11px] font-medium tracking-[0.16em] text-muted-foreground uppercase"
+        >
           {eyebrow}
         </p>
         <span
-          className="hidden h-px w-8 bg-border sm:block"
+          className="h-px max-w-12 min-w-6 flex-1 bg-border"
           aria-hidden="true"
         />
       </div>
-      <h2
-        id={id}
-        className="font-display text-[clamp(1.75rem,3.6vw,2.25rem)] tracking-tight text-foreground"
-      >
-        {title}
-      </h2>
+      {title ? (
+        <h2
+          id={id}
+          className="font-display text-[clamp(1.5rem,3.2vw,1.85rem)] tracking-tight text-foreground"
+        >
+          {title}
+        </h2>
+      ) : null}
       {description ? (
         <p
           className={cn(
-            "mt-2.5 max-w-md text-sm leading-relaxed text-balance text-muted-foreground",
+            "mt-1.5 max-w-lg text-sm leading-relaxed text-muted-foreground",
             align === "center" && "mx-auto",
           )}
         >

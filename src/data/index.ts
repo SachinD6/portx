@@ -1,11 +1,14 @@
 export * from "./types";
 export { site } from "./site";
 export { person } from "./person";
-export { navigation, commandActions } from "./navigation";
-export { projects, featuredProjects } from "./projects";
+export { product } from "./product";
+export { navigation, homeSections, commandActions } from "./navigation";
+export { projects, featuredProjects, getProjectBySlug } from "./projects";
 export { experience } from "./experience";
 export { skills } from "./skills";
 export { socials } from "./socials";
 export { approach } from "./approach";
 export { stats } from "./stats";
-export type { StatItem } from "./stats";
+export { blogPosts, getPostBySlug, getLatestPosts } from "./blog";
+export { labs } from "./labs";
+export { aiModels, nowUsing, getPrimaryModel } from "./models";

@@ -115,19 +115,14 @@ jobs:
           name: cloudflare-pages-${{ github.sha }}
           path: out
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10.29.2
-
+      # No repo checkout / pnpm cache here — only the static `out/` artifact is needed.
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: pnpm
 
       - name: Install Wrangler
-        run: pnpm add -g wrangler@4
+        run: npm install -g wrangler@4
 
       - name: Resolve branch name
         id: meta
@@ -150,7 +145,8 @@ jobs:
         run: |
           set -euo pipefail
 
-          OUTPUT=$(npx wrangler pages deploy out \
+          # Project may be served as portx-2za.pages.dev; still deploy by project name.
+          OUTPUT=$(wrangler pages deploy out \
             --project-name="${PAGES_PROJECT_NAME}" \
             --branch="${{ steps.meta.outputs.branch }}" \
             --commit-dirty=true \
@@ -257,7 +253,7 @@ jobs:
         run: |
           set -euo pipefail
 
-          OUTPUT=$(npx wrangler pages deploy out \
+          OUTPUT=$(wrangler pages deploy out \
             --project-name="${PAGES_PROJECT_NAME}" \
             --branch=production \
             --commit-dirty=true \

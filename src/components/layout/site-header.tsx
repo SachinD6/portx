@@ -2,10 +2,12 @@
 
 import { Command, Menu, X } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 
 import { openCommandPalette } from "@/components/navigation/command-palette";
-import { navigation, person } from "@/data";
+import { homeSections, navigation, person, product } from "@/data";
 import { useActiveSection } from "@/hooks/use-active-section";
 import { duration, easeOutExpo } from "@/lib/motion";
 import {
@@ -16,7 +18,16 @@ import {
 import { scrollToSection } from "@/lib/scroll";
 import { cn } from "@/lib/utils";
 
+function isHomePath(pathname: string) {
+  return pathname === "/" || pathname === "";
+}
+
+const EMPTY_SECTIONS: string[] = [];
+
 export function SiteHeader() {
+  const pathname = usePathname();
+  const router = useRouter();
+  const onHome = isHomePath(pathname);
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const reduceMotion = useReducedMotion();
@@ -25,8 +36,8 @@ export function SiteHeader() {
     getModKeyLabel,
     getServerModKeyLabel,
   );
-  const ids = useMemo(() => navigation.map((item) => item.id), []);
-  const active = useActiveSection(ids);
+  const sectionIds = useMemo(() => homeSections.map((item) => item.id), []);
+  const activeSection = useActiveSection(onHome ? sectionIds : EMPTY_SECTIONS);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -35,12 +46,25 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const go = (id: string) => {
-    scrollToSection(id);
+  const goHash = (id: string) => {
+    if (onHome) {
+      scrollToSection(id);
+    } else {
+      router.push(`/#${id}`);
+    }
     setOpen(false);
   };
 
   const openPalette = () => openCommandPalette();
+
+  const linkActive = (item: (typeof navigation)[number]) => {
+    if (item.page) {
+      return pathname === item.href || pathname.startsWith(`${item.href}/`);
+    }
+    if (!onHome) return false;
+    const hash = item.href.replace("/#", "").replace("#", "");
+    return activeSection === hash;
+  };
 
   return (
     <>
@@ -60,15 +84,11 @@ export function SiteHeader() {
               : "border-border/50 bg-surface-elevated/70 backdrop-blur-[var(--nav-blur)]",
           )}
         >
-          {/* Brand mark */}
-          <button
-            type="button"
-            onClick={() => {
-              window.scrollTo({ top: 0, behavior: "smooth" });
-              setOpen(false);
-            }}
+          <Link
+            href="/"
+            onClick={() => setOpen(false)}
             className="flex items-center gap-2 rounded-full py-1 pr-2.5 pl-1 transition-colors hover:bg-muted/80"
-            aria-label="Back to top"
+            aria-label="Home"
           >
             <span className="flex size-8 items-center justify-center rounded-full bg-primary text-[11px] font-semibold tracking-wide text-primary-foreground">
               {person.firstName.slice(0, 1)}
@@ -77,38 +97,56 @@ export function SiteHeader() {
             <span className="hidden text-sm font-medium tracking-tight text-foreground sm:inline">
               {person.firstName}
             </span>
-          </button>
+          </Link>
 
-          {/* Links */}
           <nav
             className="mx-auto hidden items-center gap-0.5 md:flex"
             aria-label="Primary"
           >
             {navigation.map((item) => {
-              const isActive = active === item.id;
+              const isActive = linkActive(item);
+              const className = cn(
+                "relative rounded-full px-3 py-1.5 text-[13px] transition-colors duration-300 ease-[var(--ease-out-soft)]",
+                isActive
+                  ? "text-foreground"
+                  : "text-muted-foreground hover:text-foreground",
+              );
+
+              const pill = isActive ? (
+                <motion.span
+                  layoutId="nav-pill"
+                  className="absolute inset-0 rounded-full bg-muted"
+                  transition={
+                    reduceMotion
+                      ? { duration: 0 }
+                      : { type: "spring", stiffness: 400, damping: 34 }
+                  }
+                />
+              ) : null;
+
+              if (item.page) {
+                return (
+                  <Link
+                    key={item.id}
+                    href={item.href}
+                    className={className}
+                    onClick={() => setOpen(false)}
+                  >
+                    {pill}
+                    <span className="relative z-[1]">{item.label}</span>
+                  </Link>
+                );
+              }
+
+              const hash = item.href.replace("/#", "").replace("#", "");
               return (
                 <button
                   key={item.id}
                   type="button"
-                  onClick={() => go(item.id)}
-                  className={cn(
-                    "relative rounded-full px-3 py-1.5 text-[13px] transition-colors duration-300 ease-[var(--ease-out-soft)]",
-                    isActive
-                      ? "text-foreground"
-                      : "text-muted-foreground hover:text-foreground",
-                  )}
+                  onClick={() => goHash(hash)}
+                  className={className}
                 >
-                  {isActive ? (
-                    <motion.span
-                      layoutId="nav-pill"
-                      className="absolute inset-0 rounded-full bg-muted"
-                      transition={
-                        reduceMotion
-                          ? { duration: 0 }
-                          : { type: "spring", stiffness: 400, damping: 34 }
-                      }
-                    />
-                  ) : null}
+                  {pill}
                   <span className="relative z-[1]">{item.label}</span>
                 </button>
               );
@@ -126,13 +164,24 @@ export function SiteHeader() {
               <span className="font-mono text-[10px]">{modKey}K</span>
             </button>
 
-            <button
-              type="button"
-              onClick={() => go("contact")}
-              className="hidden rounded-full bg-primary px-3.5 py-1.5 text-[13px] font-medium text-primary-foreground transition-opacity hover:opacity-90 md:inline-flex"
-            >
-              Contact
-            </button>
+            {product.bookingUrl ? (
+              <a
+                href={product.bookingUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hidden rounded-full bg-primary px-3.5 py-1.5 text-[13px] font-medium text-primary-foreground transition-opacity hover:opacity-90 md:inline-flex"
+              >
+                Book
+              </a>
+            ) : (
+              <button
+                type="button"
+                onClick={() => goHash("contact")}
+                className="hidden rounded-full bg-primary px-3.5 py-1.5 text-[13px] font-medium text-primary-foreground transition-opacity hover:opacity-90 md:inline-flex"
+              >
+                Contact
+              </button>
+            )}
 
             <button
               type="button"
@@ -186,31 +235,43 @@ export function SiteHeader() {
               transition={{ duration: duration.normal, ease: easeOutExpo }}
             >
               {navigation.map((item, index) => {
-                const isActive = active === item.id;
+                const isActive = linkActive(item);
+                const shared = cn(
+                  "flex w-full items-center justify-between rounded-2xl px-4 py-3 text-left text-[15px] font-medium transition-colors",
+                  isActive
+                    ? "bg-muted text-foreground"
+                    : "text-foreground hover:bg-muted/70",
+                );
+
+                if (item.page) {
+                  return (
+                    <Link
+                      key={item.id}
+                      href={item.href}
+                      className={shared}
+                      onClick={() => setOpen(false)}
+                    >
+                      {item.label}
+                      <span className="font-mono text-xs text-muted-foreground">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                    </Link>
+                  );
+                }
+
+                const hash = item.href.replace("/#", "").replace("#", "");
                 return (
-                  <motion.button
+                  <button
                     key={item.id}
                     type="button"
-                    onClick={() => go(item.id)}
-                    className={cn(
-                      "flex w-full items-center justify-between rounded-2xl px-4 py-3 text-left text-[15px] font-medium transition-colors",
-                      isActive
-                        ? "bg-muted text-foreground"
-                        : "text-foreground hover:bg-muted/70",
-                    )}
-                    initial={reduceMotion ? false : { opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{
-                      delay: 0.03 * index,
-                      duration: duration.normal,
-                      ease: easeOutExpo,
-                    }}
+                    onClick={() => goHash(hash)}
+                    className={shared}
                   >
                     {item.label}
                     <span className="font-mono text-xs text-muted-foreground">
                       {String(index + 1).padStart(2, "0")}
                     </span>
-                  </motion.button>
+                  </button>
                 );
               })}
               <div className="mt-1 grid grid-cols-2 gap-1 border-t border-border/70 p-1 pt-2">
@@ -225,13 +286,25 @@ export function SiteHeader() {
                   <Command className="size-3.5" strokeWidth={1.5} />
                   {modKey}K
                 </button>
-                <button
-                  type="button"
-                  onClick={() => go("contact")}
-                  className="rounded-xl bg-primary px-3 py-2.5 text-sm font-medium text-primary-foreground"
-                >
-                  Contact
-                </button>
+                {product.bookingUrl ? (
+                  <a
+                    href={product.bookingUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="rounded-xl bg-primary px-3 py-2.5 text-center text-sm font-medium text-primary-foreground"
+                    onClick={() => setOpen(false)}
+                  >
+                    Book
+                  </a>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => goHash("contact")}
+                    className="rounded-xl bg-primary px-3 py-2.5 text-sm font-medium text-primary-foreground"
+                  >
+                    Contact
+                  </button>
+                )}
               </div>
             </motion.nav>
           </motion.div>
