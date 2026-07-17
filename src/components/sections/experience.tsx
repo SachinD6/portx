@@ -32,10 +32,10 @@ export function Experience() {
           aria-hidden="true"
         />
 
-        <ul className="space-y-0">
+        <ul className="flex flex-col gap-5 sm:gap-6">
           {experience.map((item, index) => (
             <Reveal key={item.id} as="li" delay={index * 0.05}>
-              <article className="relative grid grid-cols-[2.25rem_1fr] gap-3 pb-6 last:pb-0 sm:gap-4">
+              <article className="relative grid grid-cols-[2.25rem_1fr] gap-3 sm:gap-4">
                 {/* Node on the rail */}
                 <div className="relative z-[1] flex justify-center pt-5">
                   <span

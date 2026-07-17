@@ -18,6 +18,7 @@ import {
   MailIcon,
   XIcon,
 } from "@/components/icons/social-icons";
+import { NowUsingWidget } from "@/components/sections/now-using";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { experience, person, product, socials } from "@/data";
 import { fadeUp, staggerContainer } from "@/lib/motion";
@@ -219,9 +220,17 @@ export function ProfileHero() {
           })}
         </motion.ul>
 
+        {/* Tiny now-using bar — ramx energy, hero-inline */}
+        <motion.div
+          variants={reduceMotion ? undefined : fadeUp}
+          className="mt-5"
+        >
+          <NowUsingWidget className="w-full max-w-md sm:w-auto" />
+        </motion.div>
+
         <motion.p
           variants={reduceMotion ? undefined : fadeUp}
-          className="mt-7 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-[0.95rem]"
+          className="mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-[0.95rem]"
         >
           {person.bio}
         </motion.p>

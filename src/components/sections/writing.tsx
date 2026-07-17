@@ -15,7 +15,7 @@ export function Writing() {
       <Reveal>
         <SectionHeading
           id="writing-heading"
-          index="04"
+          index="03"
           eyebrow="Writing"
           title="Notes"
           description="Craft, positioning, and product thinking—authority beyond project lists."

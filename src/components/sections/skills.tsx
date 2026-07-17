@@ -12,7 +12,7 @@ export function Skills() {
       <Reveal>
         <SectionHeading
           id="stack-heading"
-          index="06"
+          index="04"
           eyebrow="Stack"
           title="Tools"
           description="Curated clusters—not a logo wall of everything I’ve ever touched."

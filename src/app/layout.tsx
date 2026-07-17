@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 
 import { SiteAnalytics } from "@/components/analytics/site-analytics";
-import { CursorCompanion } from "@/components/effects/cursor-companion";
 import { ScrollProgress } from "@/components/effects/scroll-progress";
 import { ChapterRail } from "@/components/layout/chapter-rail";
 import { GrainOverlay } from "@/components/layout/grain-overlay";
@@ -47,7 +46,6 @@ export default function RootLayout({
           <SiteAnalytics />
           <GrainOverlay />
           <ScrollProgress />
-          <CursorCompanion />
           <SiteHeader />
           <ChapterRail />
           <div className="relative z-10 flex flex-1 flex-col">{children}</div>
