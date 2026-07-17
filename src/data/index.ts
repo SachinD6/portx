@@ -11,3 +11,4 @@ export { approach } from "./approach";
 export { stats } from "./stats";
 export { blogPosts, getPostBySlug, getLatestPosts } from "./blog";
 export { labs } from "./labs";
+export { aiModels, nowUsing, getPrimaryModel } from "./models";

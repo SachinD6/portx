@@ -143,6 +143,27 @@ export type ProductConfig = {
   };
 };
 
+/** AI model currently in the daily toolkit (ramx “now playing” analogue) */
+export type AiModel = {
+  id: string;
+  name: string;
+  provider: string;
+  /** One-line why this model is in rotation */
+  role: string;
+  /** Visual accent for the widget chip */
+  accent?: "primary" | "muted";
+  status: "active" | "standby";
+};
+
+export type NowUsingConfig = {
+  label: string;
+  /** Shown next to the live pulse */
+  liveLabel: string;
+  /** Model id treated as the “now playing” primary */
+  primaryId: string;
+  models: AiModel[];
+};
+
 export type SiteConfig = {
   name: string;
   title: string;

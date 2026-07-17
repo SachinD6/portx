@@ -1,6 +1,12 @@
 "use client";
 
-import { Briefcase, Crosshair, Mail, MapPin } from "lucide-react";
+import {
+  Briefcase,
+  Crosshair,
+  Mail,
+  MapPin,
+  type LucideIcon,
+} from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import { useState, type ReactNode } from "react";
 import { toast } from "sonner";
@@ -12,6 +18,7 @@ import {
   MailIcon,
   XIcon,
 } from "@/components/icons/social-icons";
+import { NowUsing } from "@/components/sections/now-using";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { experience, person, product, socials } from "@/data";
 import { fadeUp, staggerContainer } from "@/lib/motion";
@@ -26,41 +33,31 @@ const iconMap = {
   globe: GlobeIcon,
 } as const;
 
-type OverviewItemProps = {
-  icon: ReactNode;
-  label: string;
+/**
+ * chanhdai-style overview row: small icon + content, zero card chrome.
+ * Dense, document-like, left-aligned — maximum signal per line.
+ */
+function OverviewLine({
+  icon: Icon,
+  children,
+}: {
+  icon: LucideIcon;
   children: ReactNode;
-};
-
-function OverviewItem({ icon, label, children }: OverviewItemProps) {
+}) {
   return (
-    <div
-      className={cn(
-        "flex gap-3 rounded-xl border border-border/80 bg-surface-elevated px-3.5 py-3",
-        "transition-colors duration-300 ease-[var(--ease-out-soft)]",
-        "hover:border-foreground/15",
-      )}
-    >
-      <span
-        className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-border bg-background text-foreground/75"
+    <li className="group flex items-start gap-2.5 py-1.5 text-sm leading-snug text-foreground sm:text-[0.95rem]">
+      <Icon
+        className="mt-0.5 size-3.5 shrink-0 text-muted-foreground transition-colors group-hover:text-foreground/70"
+        strokeWidth={1.6}
         aria-hidden="true"
-      >
-        {icon}
-      </span>
-      <div className="min-w-0 pt-0.5">
-        <p className="text-[10px] font-medium tracking-[0.14em] text-muted-foreground uppercase">
-          {label}
-        </p>
-        <div className="mt-0.5 text-sm leading-snug text-foreground">
-          {children}
-        </div>
-      </div>
-    </div>
+      />
+      <div className="min-w-0">{children}</div>
+    </li>
   );
 }
 
 /**
- * Compact profile intro — open overview with icon tiles (no single big card).
+ * Compact profile intro — chanhdai overview density + ramx-style models widget.
  */
 export function ProfileHero() {
   const reduceMotion = useReducedMotion();
@@ -84,6 +81,7 @@ export function ProfileHero() {
         initial={reduceMotion ? false : "hidden"}
         animate="visible"
       >
+        {/* Identity row */}
         <motion.div
           variants={reduceMotion ? undefined : fadeUp}
           className="flex items-start gap-4 sm:gap-5"
@@ -126,33 +124,29 @@ export function ProfileHero() {
             >
               {person.name}
             </h1>
-            <p className="mt-1.5 text-sm text-muted-foreground sm:text-[0.95rem]">
+            <p className="mt-1.5 max-w-md text-sm text-muted-foreground sm:text-[0.95rem]">
               {person.headline}
             </p>
           </div>
         </motion.div>
 
-        {/* Overview — icon tiles, soft shade, no single enclosing card */}
+        {/* Overview — ultra-minimal document lines (chanhdai) */}
         <motion.div
           variants={reduceMotion ? undefined : fadeUp}
-          className="mt-8"
+          className="mt-9"
         >
-          <div className="mb-3 flex items-center gap-2.5">
+          <div className="mb-2 flex items-center gap-3">
             <p className="text-[11px] font-medium tracking-[0.16em] text-muted-foreground uppercase">
               Overview
             </p>
             <span
-              className="h-px max-w-12 min-w-6 flex-1 bg-border"
+              className="h-px max-w-16 min-w-8 flex-1 bg-border"
               aria-hidden="true"
             />
           </div>
 
-          {/* Stacked one-over-another (not a 2-col grid) */}
-          <div className="flex flex-col gap-2.5">
-            <OverviewItem
-              icon={<Briefcase className="size-4" strokeWidth={1.5} />}
-              label="Role"
-            >
+          <ul className="divide-y divide-border/70 border-y border-border/70">
+            <OverviewLine icon={Briefcase}>
               <span className="font-medium">{person.role}</span>
               {currentRole ? (
                 <>
@@ -165,40 +159,32 @@ export function ProfileHero() {
                   </a>
                 </>
               ) : null}
-            </OverviewItem>
+            </OverviewLine>
 
-            <OverviewItem
-              icon={<Crosshair className="size-4" strokeWidth={1.5} />}
-              label="Focus"
-            >
-              {person.positioning}
-            </OverviewItem>
+            <OverviewLine icon={Crosshair}>
+              <span className="text-foreground/90">{person.positioning}</span>
+            </OverviewLine>
 
-            <OverviewItem
-              icon={<MapPin className="size-4" strokeWidth={1.5} />}
-              label="Location"
-            >
-              {person.location}
-            </OverviewItem>
+            <OverviewLine icon={MapPin}>
+              <span>{person.location}</span>
+            </OverviewLine>
 
-            <OverviewItem
-              icon={<Mail className="size-4" strokeWidth={1.5} />}
-              label="Email"
-            >
+            <OverviewLine icon={Mail}>
               <button
                 type="button"
                 onClick={handleCopyEmail}
-                className="text-left font-mono underline-offset-4 transition-colors hover:underline"
+                className="font-mono text-[0.9em] underline-offset-4 transition-colors hover:underline"
               >
                 {person.email}
               </button>
-            </OverviewItem>
-          </div>
+            </OverviewLine>
+          </ul>
         </motion.div>
 
+        {/* Social — quiet chips */}
         <motion.ul
           variants={reduceMotion ? undefined : fadeUp}
-          className="mt-6 flex flex-wrap gap-2"
+          className="mt-5 flex flex-wrap gap-2"
         >
           {socials.map((social) => {
             const Icon = iconMap[social.icon];
@@ -224,16 +210,20 @@ export function ProfileHero() {
           })}
         </motion.ul>
 
-        <motion.p
+        {/* Bio + models widget */}
+        <motion.div
           variants={reduceMotion ? undefined : fadeUp}
-          className="mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-[0.95rem]"
+          className="mt-7 grid gap-5 sm:grid-cols-[minmax(0,1fr)_minmax(0,16.5rem)] sm:items-start sm:gap-6"
         >
-          {person.bio}
-        </motion.p>
+          <p className="max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-[0.95rem]">
+            {person.bio}
+          </p>
+          <NowUsing className="sm:sticky sm:top-24" />
+        </motion.div>
 
         <motion.div
           variants={reduceMotion ? undefined : fadeUp}
-          className="mt-6 flex flex-wrap gap-2.5"
+          className="mt-7 flex flex-wrap gap-2.5"
         >
           <MagneticButton href="#experience" showArrow={false}>
             View experience
