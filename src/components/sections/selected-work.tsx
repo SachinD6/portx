@@ -12,8 +12,8 @@ export function SelectedWork() {
           id="work-heading"
           index="01"
           eyebrow="Selected work"
-          title="Proof over promises"
-          description="Expand a project to see the problem, ownership, and outcome."
+          title="Stories, not inventories"
+          description="Each project is a case study: problem, approach, uniqueness, and impact—with numbers when they matter."
         />
       </Reveal>
 

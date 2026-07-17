@@ -1,15 +1,22 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useMemo } from "react";
 
-import { navigation } from "@/data";
+import { homeSections } from "@/data";
 import { useActiveSection } from "@/hooks/use-active-section";
 import { scrollToSection } from "@/lib/scroll";
 import { cn } from "@/lib/utils";
 
+const EMPTY_SECTIONS: string[] = [];
+
 export function ChapterRail() {
-  const ids = useMemo(() => navigation.map((item) => item.id), []);
-  const active = useActiveSection(ids);
+  const pathname = usePathname();
+  const onHome = pathname === "/" || pathname === "";
+  const ids = useMemo(() => homeSections.map((item) => item.id), []);
+  const active = useActiveSection(onHome ? ids : EMPTY_SECTIONS);
+
+  if (!onHome) return null;
 
   return (
     <aside
@@ -17,14 +24,13 @@ export function ChapterRail() {
       aria-label="Section chapters"
     >
       <div className="pointer-events-auto relative pl-0.5">
-        {/* Vertical guide line */}
         <span
           className="absolute top-2 bottom-2 left-[0.28rem] w-px bg-border"
           aria-hidden="true"
         />
 
         <ol className="relative flex flex-col gap-1">
-          {navigation.map((item, index) => {
+          {homeSections.map((item, index) => {
             const isActive = active === item.id;
             return (
               <li key={item.id}>

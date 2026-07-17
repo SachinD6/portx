@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 
+import { SiteAnalytics } from "@/components/analytics/site-analytics";
 import { ScrollProgress } from "@/components/effects/scroll-progress";
 import { ChapterRail } from "@/components/layout/chapter-rail";
 import { GrainOverlay } from "@/components/layout/grain-overlay";
@@ -42,6 +43,7 @@ export default function RootLayout({
     >
       <body className="relative flex min-h-full flex-col font-sans">
         <AppProviders>
+          <SiteAnalytics />
           <GrainOverlay />
           <ScrollProgress />
           <SiteHeader />

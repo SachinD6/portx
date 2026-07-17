@@ -10,7 +10,7 @@ export function Skills() {
       <Reveal>
         <SectionHeading
           id="stack-heading"
-          index="04"
+          index="06"
           eyebrow="Stack"
           title="Tools I reach for"
           description="Curated on purpose—not a logo wall of everything I’ve ever touched."

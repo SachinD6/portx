@@ -4,7 +4,7 @@ import { Command } from "cmdk";
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 
-import { commandActions, person, projects } from "@/data";
+import { commandActions, person, product, projects } from "@/data";
 import { copyToClipboard, scrollToSection } from "@/lib/scroll";
 import { cn } from "@/lib/utils";
 
@@ -46,13 +46,18 @@ export function CommandPalette() {
   }, [open]);
 
   const run = useCallback(async (id: string) => {
+    if (id === "book-call" && product.bookingUrl) {
+      window.open(product.bookingUrl, "_blank", "noopener,noreferrer");
+      setOpen(false);
+      return;
+    }
+
     const action = commandActions.find((item) => item.id === id);
     if (!action) {
-      const project = projects.find((p) => p.id === id);
+      const project = projects.find((p) => p.id === id || p.slug === id);
       if (project) {
-        scrollToSection("work");
+        window.open(`/work/${project.slug}`, "_self");
         setOpen(false);
-        toast.message(`Jumped to ${project.title}`);
       }
       return;
     }
@@ -64,8 +69,18 @@ export function CommandPalette() {
       return;
     }
 
+    if (action.action === "navigate" && action.href) {
+      window.open(action.href, "_self");
+      setOpen(false);
+      return;
+    }
+
     if (action.action === "scroll" && action.sectionId) {
-      scrollToSection(action.sectionId);
+      if (window.location.pathname !== "/") {
+        window.open(`/#${action.sectionId}`, "_self");
+      } else {
+        scrollToSection(action.sectionId);
+      }
       setOpen(false);
     }
   }, []);
@@ -91,7 +106,7 @@ export function CommandPalette() {
         <div className="border-b border-border px-4 py-3">
           <Command.Input
             autoFocus
-            placeholder="Jump, search, or copy email…"
+            placeholder="Jump, search cases, or copy email…"
             className="w-full bg-transparent text-sm text-foreground outline-none placeholder:text-muted-foreground"
           />
         </div>
@@ -122,17 +137,27 @@ export function CommandPalette() {
                 ) : null}
               </Command.Item>
             ))}
+            {product.bookingUrl ? (
+              <Command.Item
+                value="book call calendar meeting"
+                onSelect={() => run("book-call")}
+                className="flex cursor-pointer items-center justify-between gap-3 rounded-xl px-3 py-2.5 text-sm data-[selected=true]:bg-muted"
+              >
+                <span className="font-medium">{product.bookingLabel}</span>
+                <span className="text-xs text-muted-foreground">Cal.com</span>
+              </Command.Item>
+            ) : null}
           </Command.Group>
 
           <Command.Group
-            heading="Work"
+            heading="Case studies"
             className="mt-2 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-[11px] [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:tracking-[0.14em] [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group-heading]]:uppercase"
           >
             {projects.map((project) => (
               <Command.Item
                 key={project.id}
-                value={`${project.title} ${project.stack.join(" ")}`}
-                onSelect={() => run(project.id)}
+                value={`${project.title} ${project.stack.join(" ")} case study`}
+                onSelect={() => run(project.slug)}
                 className={cn(
                   "flex cursor-pointer items-center justify-between gap-3 rounded-xl px-3 py-2.5 text-sm",
                   "data-[selected=true]:bg-muted data-[selected=true]:text-foreground",

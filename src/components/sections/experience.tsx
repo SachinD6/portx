@@ -9,7 +9,7 @@ export function Experience() {
       <Reveal>
         <SectionHeading
           id="experience-heading"
-          index="03"
+          index="05"
           eyebrow="Experience"
           title="Where I've been"
         />

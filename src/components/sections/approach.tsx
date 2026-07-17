@@ -9,7 +9,7 @@ export function Approach() {
       <Reveal>
         <SectionHeading
           id="approach-heading"
-          index="02"
+          index="04"
           eyebrow="Approach"
           title="How I work"
         />

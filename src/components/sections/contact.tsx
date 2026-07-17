@@ -11,7 +11,7 @@ import {
 import { Section } from "@/components/layout/section";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { Reveal } from "@/components/ui/reveal";
-import { person, socials } from "@/data";
+import { person, product, socials } from "@/data";
 import { copyToClipboard } from "@/lib/scroll";
 import { cn } from "@/lib/utils";
 
@@ -22,7 +22,6 @@ const iconMap = {
   globe: GlobeIcon,
 } as const;
 
-/** Socials shown in contact — email is the primary CTA button, not a chip. */
 const contactSocials = socials.filter((s) => s.icon !== "mail");
 
 export function Contact() {
@@ -59,8 +58,19 @@ export function Contact() {
               </p>
 
               <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
+                {product.bookingUrl ? (
+                  <MagneticButton
+                    href={product.bookingUrl}
+                    external
+                    className="w-full sm:w-auto"
+                  >
+                    {product.bookingLabel}
+                  </MagneticButton>
+                ) : null}
                 <MagneticButton
                   onClick={handleCopyEmail}
+                  variant={product.bookingUrl ? "secondary" : "primary"}
+                  showArrow={!product.bookingUrl}
                   className="w-full sm:w-auto"
                 >
                   Copy email
@@ -68,8 +78,9 @@ export function Contact() {
                 {person.resumeUrl ? (
                   <MagneticButton
                     href={person.resumeUrl}
-                    variant="secondary"
+                    variant="ghost"
                     external
+                    showArrow={false}
                     className="w-full sm:w-auto"
                   >
                     Resume

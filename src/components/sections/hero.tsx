@@ -6,7 +6,7 @@ import { toast } from "sonner";
 
 import { TextReveal } from "@/components/effects/text-reveal";
 import { MagneticButton } from "@/components/ui/magnetic-button";
-import { person, stats } from "@/data";
+import { person, product, stats } from "@/data";
 import { duration, easeOutExpo, fadeUp, staggerContainer } from "@/lib/motion";
 import {
   getModKeyLabel,
@@ -88,21 +88,37 @@ export function Hero() {
           {person.headline}
         </motion.p>
 
+        <motion.p
+          variants={reduceMotion ? undefined : fadeUp}
+          className="mt-3 max-w-md text-sm leading-relaxed text-muted-foreground/90"
+        >
+          {person.positioning}
+        </motion.p>
+
         <motion.div
           variants={reduceMotion ? undefined : fadeUp}
           className="mt-7 flex flex-wrap items-center justify-center gap-3"
         >
-          <MagneticButton href="#work">View work</MagneticButton>
-          <MagneticButton
-            variant="secondary"
-            showArrow={false}
-            onClick={handleCopyEmail}
-          >
-            Copy email
-          </MagneticButton>
+          <MagneticButton href="#work">View case studies</MagneticButton>
+          {product.bookingUrl ? (
+            <MagneticButton
+              href={product.bookingUrl}
+              external
+              variant="secondary"
+            >
+              {product.bookingLabel}
+            </MagneticButton>
+          ) : (
+            <MagneticButton
+              variant="secondary"
+              showArrow={false}
+              onClick={handleCopyEmail}
+            >
+              Copy email
+            </MagneticButton>
+          )}
         </motion.div>
 
-        {/* Stats: separate tiles on mobile, one row on desktop */}
         <motion.dl
           variants={reduceMotion ? undefined : fadeUp}
           className="mt-10 grid w-full max-w-lg grid-cols-2 gap-2 sm:max-w-2xl sm:grid-cols-4 sm:gap-0 sm:overflow-hidden sm:rounded-2xl sm:border sm:border-border sm:bg-surface-elevated/80"

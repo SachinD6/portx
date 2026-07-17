@@ -2,17 +2,18 @@ import type { SiteConfig } from "./types";
 
 export const site: SiteConfig = {
   name: "Sachin Duhan",
-  title: "Sachin Duhan — Software Engineer",
+  title: "Sachin Duhan — Product Engineer",
   description:
-    "Software engineer who ships reliable product software end-to-end—interfaces, APIs, and the systems under them.",
-  url: "https://sachinduhan.dev",
+    "Product engineer focused on product interfaces with systems depth. Case studies, writing, and labs—not a resume dump.",
+  url: "https://portx-2za.pages.dev",
   locale: "en_US",
   keywords: [
     "Sachin Duhan",
-    "Software Engineer",
-    "Full Stack",
-    "Portfolio",
+    "Product Engineer",
+    "Frontend",
+    "React",
     "Next.js",
-    "TypeScript",
+    "Portfolio",
+    "Case studies",
   ],
 };
