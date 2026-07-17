@@ -5,7 +5,7 @@ export const projects: Project[] = [
     id: "freshergo",
     slug: "freshergo",
     title: "FresherGo",
-    year: "2025–2026",
+    year: "2026",
     role: "Founder · Product & Engineering",
     metric: "12k+ visitors / month",
     summary:
