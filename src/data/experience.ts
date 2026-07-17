@@ -70,21 +70,11 @@ export const experience: ExperienceItem[] = [
     start: "2026",
     end: "Present",
     description:
-      "Side systems work on code understanding and developer tooling—graph-backed repos, architecture generation, and native utilities.",
+      "Side systems work on developer tooling—architecture generation and native utilities.",
     highlights: [
-      "RepoAtlas: AST + knowledge-graph code understanding with Neo4j, AWS SQS, and Redis",
       "Project Copilot: architecture, ERD canvas, and Gemini-assisted planning",
       "Renamesit (in development): Rust/Tauri desktop utility for convert-by-rename workflows",
     ],
-    stack: [
-      "TypeScript",
-      "Next.js",
-      "Neo4j",
-      "PostgreSQL",
-      "Redis",
-      "AWS SQS",
-      "Rust",
-      "Tauri",
-    ],
+    stack: ["TypeScript", "Next.js", "React", "Firebase", "Rust", "Tauri"],
   },
 ];
