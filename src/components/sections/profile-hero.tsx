@@ -18,7 +18,6 @@ import {
   MailIcon,
   XIcon,
 } from "@/components/icons/social-icons";
-import { NowUsing } from "@/components/sections/now-using";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { experience, person, product, socials } from "@/data";
 import { fadeUp, staggerContainer } from "@/lib/motion";
@@ -34,8 +33,7 @@ const iconMap = {
 } as const;
 
 /**
- * chanhdai-style overview row: small icon + content, zero card chrome.
- * Dense, document-like, left-aligned — maximum signal per line.
+ * chanhdai-style overview row with experience-style ring icons.
  */
 function OverviewLine({
   icon: Icon,
@@ -45,19 +43,26 @@ function OverviewLine({
   children: ReactNode;
 }) {
   return (
-    <li className="group flex items-start gap-2.5 py-1.5 text-sm leading-snug text-foreground sm:text-[0.95rem]">
-      <Icon
-        className="mt-0.5 size-3.5 shrink-0 text-muted-foreground transition-colors group-hover:text-foreground/70"
-        strokeWidth={1.6}
+    <li className="group flex items-start gap-3 py-2 text-sm leading-snug text-foreground sm:gap-3.5 sm:text-[0.95rem]">
+      <span
+        className={cn(
+          "mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-full",
+          "border-2 border-background bg-muted text-muted-foreground",
+          "shadow-[0_0_0_1px_var(--border)]",
+          "transition-colors duration-300 ease-[var(--ease-out-soft)]",
+          "group-hover:bg-primary group-hover:text-primary-foreground",
+        )}
         aria-hidden="true"
-      />
-      <div className="min-w-0">{children}</div>
+      >
+        <Icon className="size-3.5" strokeWidth={1.5} />
+      </span>
+      <div className="min-w-0 pt-1.5">{children}</div>
     </li>
   );
 }
 
 /**
- * Compact profile intro — chanhdai overview density + ramx-style models widget.
+ * Compact profile intro — chanhdai overview density, clean social row.
  */
 export function ProfileHero() {
   const reduceMotion = useReducedMotion();
@@ -130,12 +135,12 @@ export function ProfileHero() {
           </div>
         </motion.div>
 
-        {/* Overview — ultra-minimal document lines (chanhdai) */}
+        {/* Overview — document lines + ring icons */}
         <motion.div
           variants={reduceMotion ? undefined : fadeUp}
           className="mt-9"
         >
-          <div className="mb-2 flex items-center gap-3">
+          <div className="mb-3 flex items-center gap-3">
             <p className="text-[11px] font-medium tracking-[0.16em] text-muted-foreground uppercase">
               Overview
             </p>
@@ -145,7 +150,7 @@ export function ProfileHero() {
             />
           </div>
 
-          <ul className="divide-y divide-border/70 border-y border-border/70">
+          <ul className="flex flex-col gap-0.5">
             <OverviewLine icon={Briefcase}>
               <span className="font-medium">{person.role}</span>
               {currentRole ? (
@@ -181,10 +186,10 @@ export function ProfileHero() {
           </ul>
         </motion.div>
 
-        {/* Social — quiet chips */}
+        {/* Social — icon-only rings, clean & quiet */}
         <motion.ul
           variants={reduceMotion ? undefined : fadeUp}
-          className="mt-5 flex flex-wrap gap-2"
+          className="mt-6 flex flex-wrap items-center gap-2"
         >
           {socials.map((social) => {
             const Icon = iconMap[social.icon];
@@ -196,30 +201,30 @@ export function ProfileHero() {
                   rel={
                     social.icon === "mail" ? undefined : "noopener noreferrer"
                   }
+                  aria-label={social.label}
+                  title={social.label}
                   className={cn(
-                    "inline-flex items-center gap-2 rounded-full border border-border bg-background/70 px-3 py-1.5 text-xs text-muted-foreground",
+                    "group inline-flex size-10 items-center justify-center rounded-full",
+                    "border border-border/90 bg-background text-muted-foreground",
+                    "shadow-[0_0_0_1px_transparent]",
                     "transition-all duration-300 ease-[var(--ease-out-soft)]",
                     "hover:-translate-y-0.5 hover:border-foreground/20 hover:bg-foreground hover:text-background",
+                    "focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
                   )}
                 >
-                  <Icon className="size-3.5" />
-                  {social.label}
+                  <Icon className="size-4 transition-transform duration-300 group-hover:scale-105" />
                 </a>
               </li>
             );
           })}
         </motion.ul>
 
-        {/* Bio + models widget */}
-        <motion.div
+        <motion.p
           variants={reduceMotion ? undefined : fadeUp}
-          className="mt-7 grid gap-5 sm:grid-cols-[minmax(0,1fr)_minmax(0,16.5rem)] sm:items-start sm:gap-6"
+          className="mt-7 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-[0.95rem]"
         >
-          <p className="max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-[0.95rem]">
-            {person.bio}
-          </p>
-          <NowUsing className="sm:sticky sm:top-24" />
-        </motion.div>
+          {person.bio}
+        </motion.p>
 
         <motion.div
           variants={reduceMotion ? undefined : fadeUp}

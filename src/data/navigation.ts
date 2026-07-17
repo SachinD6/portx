@@ -14,7 +14,7 @@ export const navigation: NavItem[] = [
  */
 export const homeSections: NavItem[] = [
   { id: "experience", label: "Experience", href: "#experience" },
-  { id: "activity", label: "Activity", href: "#activity" },
+  { id: "now", label: "Now", href: "#now" },
   { id: "work", label: "Work", href: "#work" },
   { id: "writing", label: "Writing", href: "#writing" },
   { id: "labs", label: "Labs", href: "#labs" },
