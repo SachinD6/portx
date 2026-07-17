@@ -1,7 +1,8 @@
 "use client";
 
+import { Briefcase, Crosshair, Mail, MapPin } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { toast } from "sonner";
 
 import {
@@ -25,8 +26,41 @@ const iconMap = {
   globe: GlobeIcon,
 } as const;
 
+type OverviewItemProps = {
+  icon: ReactNode;
+  label: string;
+  children: ReactNode;
+};
+
+function OverviewItem({ icon, label, children }: OverviewItemProps) {
+  return (
+    <div
+      className={cn(
+        "flex gap-3 rounded-xl border border-border/70 bg-muted/40 px-3.5 py-3",
+        "transition-colors duration-300 ease-[var(--ease-out-soft)]",
+        "hover:border-border hover:bg-muted/65",
+      )}
+    >
+      <span
+        className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-border/80 bg-surface-elevated text-foreground/80"
+        aria-hidden="true"
+      >
+        {icon}
+      </span>
+      <div className="min-w-0 pt-0.5">
+        <p className="text-[10px] font-medium tracking-[0.14em] text-muted-foreground uppercase">
+          {label}
+        </p>
+        <div className="mt-0.5 text-sm leading-snug text-foreground">
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /**
- * Compact profile intro — open overview (no wrapped card), consistent chips/CTAs.
+ * Compact profile intro — open overview with icon tiles (no single big card).
  */
 export function ProfileHero() {
   const reduceMotion = useReducedMotion();
@@ -50,7 +84,6 @@ export function ProfileHero() {
         initial={reduceMotion ? false : "hidden"}
         animate="visible"
       >
-        {/* Avatar + identity */}
         <motion.div
           variants={reduceMotion ? undefined : fadeUp}
           className="flex items-start gap-4 sm:gap-5"
@@ -99,7 +132,7 @@ export function ProfileHero() {
           </div>
         </motion.div>
 
-        {/* Overview — open rows, no enclosing card */}
+        {/* Overview — icon tiles, soft shade, no single enclosing card */}
         <motion.div
           variants={reduceMotion ? undefined : fadeUp}
           className="mt-8"
@@ -114,50 +147,54 @@ export function ProfileHero() {
             />
           </div>
 
-          <dl className="space-y-3">
-            <div className="grid gap-0.5 sm:grid-cols-[6.5rem_1fr] sm:items-baseline sm:gap-6">
-              <dt className="text-xs text-muted-foreground">Role</dt>
-              <dd className="text-sm text-foreground">
-                <span className="font-medium">{person.role}</span>
-                {currentRole ? (
-                  <>
-                    <span className="text-muted-foreground"> @ </span>
-                    <a
-                      href="#experience"
-                      className="font-medium underline-offset-4 transition-colors hover:underline"
-                    >
-                      {currentRole.company}
-                    </a>
-                  </>
-                ) : null}
-              </dd>
-            </div>
-            <div className="grid gap-0.5 sm:grid-cols-[6.5rem_1fr] sm:items-baseline sm:gap-6">
-              <dt className="text-xs text-muted-foreground">Focus</dt>
-              <dd className="text-sm leading-relaxed text-foreground/90">
-                {person.positioning}
-              </dd>
-            </div>
-            <div className="grid gap-0.5 sm:grid-cols-[6.5rem_1fr] sm:items-baseline sm:gap-6">
-              <dt className="text-xs text-muted-foreground">Location</dt>
-              <dd className="text-sm text-foreground">{person.location}</dd>
-            </div>
-            <div className="grid gap-0.5 sm:grid-cols-[6.5rem_1fr] sm:items-baseline sm:gap-6">
-              <dt className="text-xs text-muted-foreground">Email</dt>
-              <dd className="text-sm">
-                <button
-                  type="button"
-                  onClick={handleCopyEmail}
-                  className="font-mono text-foreground underline-offset-4 transition-colors hover:underline"
-                >
-                  {person.email}
-                </button>
-              </dd>
-            </div>
-          </dl>
+          <div className="grid gap-2.5 sm:grid-cols-2">
+            <OverviewItem
+              icon={<Briefcase className="size-4" strokeWidth={1.5} />}
+              label="Role"
+            >
+              <span className="font-medium">{person.role}</span>
+              {currentRole ? (
+                <>
+                  <span className="text-muted-foreground"> @ </span>
+                  <a
+                    href="#experience"
+                    className="font-medium underline-offset-4 transition-colors hover:underline"
+                  >
+                    {currentRole.company}
+                  </a>
+                </>
+              ) : null}
+            </OverviewItem>
+
+            <OverviewItem
+              icon={<Crosshair className="size-4" strokeWidth={1.5} />}
+              label="Focus"
+            >
+              {person.positioning}
+            </OverviewItem>
+
+            <OverviewItem
+              icon={<MapPin className="size-4" strokeWidth={1.5} />}
+              label="Location"
+            >
+              {person.location}
+            </OverviewItem>
+
+            <OverviewItem
+              icon={<Mail className="size-4" strokeWidth={1.5} />}
+              label="Email"
+            >
+              <button
+                type="button"
+                onClick={handleCopyEmail}
+                className="text-left font-mono underline-offset-4 transition-colors hover:underline"
+              >
+                {person.email}
+              </button>
+            </OverviewItem>
+          </div>
         </motion.div>
 
-        {/* Social row — same chip language as rest of site */}
         <motion.ul
           variants={reduceMotion ? undefined : fadeUp}
           className="mt-6 flex flex-wrap gap-2"

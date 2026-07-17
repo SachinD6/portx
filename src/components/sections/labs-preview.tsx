@@ -20,7 +20,7 @@ export function LabsPreview() {
       <Reveal>
         <SectionHeading
           id="labs-heading"
-          index="04"
+          index="05"
           eyebrow="Labs"
           title="Components & experiments"
           description="Useful bits you can learn from—value that makes the site worth revisiting."

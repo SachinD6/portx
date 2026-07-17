@@ -10,7 +10,7 @@ export function SelectedWork() {
       <Reveal>
         <SectionHeading
           id="work-heading"
-          index="02"
+          index="03"
           eyebrow="Selected work"
           title="Case studies"
           description="Stories with problem, approach, uniqueness, and impact—not a GitHub dump."

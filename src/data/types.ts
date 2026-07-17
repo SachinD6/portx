@@ -122,6 +122,8 @@ export type Person = {
   positioning: string;
   location: string;
   email: string;
+  /** GitHub username for contribution graph */
+  githubUsername?: string;
   availability: {
     status: "available" | "open" | "busy";
     label: string;

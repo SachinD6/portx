@@ -36,7 +36,7 @@ export function Contact() {
       <Reveal>
         <SectionHeading
           id="contact-heading"
-          index="06"
+          index="07"
           eyebrow="Contact"
           title="Let’s talk"
           description={person.bio}

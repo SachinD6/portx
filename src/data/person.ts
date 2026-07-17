@@ -12,6 +12,7 @@ export const person: Person = {
   bio: "I care about the path from problem to shipped interface: clear defaults, honest empty states, and services that stay understandable under load. I want work where product thinking and engineering sit in the same seat.",
   location: "India",
   email: "hello@sachinduhan.dev",
+  githubUsername: "SachinD6",
   availability: {
     status: "available",
     label: "Open to product engineering roles",
