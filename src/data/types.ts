@@ -148,6 +148,8 @@ export type AiModel = {
   id: string;
   name: string;
   provider: string;
+  /** Brand mark key for icon rendering */
+  brand: "xai" | "anthropic" | "openai" | "moonshot";
   /** One-line why this model is in rotation */
   role: string;
   /** Visual accent for the widget chip */

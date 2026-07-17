@@ -33,7 +33,7 @@ const iconMap = {
 } as const;
 
 /**
- * chanhdai-style overview row with experience-style ring icons.
+ * chanhdai overview row: hairline stack + experience-style ring on the icon.
  */
 function OverviewLine({
   icon: Icon,
@@ -43,10 +43,10 @@ function OverviewLine({
   children: ReactNode;
 }) {
   return (
-    <li className="group flex items-start gap-3 py-2 text-sm leading-snug text-foreground sm:gap-3.5 sm:text-[0.95rem]">
+    <li className="group flex items-start gap-2.5 py-1.5 text-sm leading-snug text-foreground sm:text-[0.95rem]">
       <span
         className={cn(
-          "mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-full",
+          "mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-full",
           "border-2 border-background bg-muted text-muted-foreground",
           "shadow-[0_0_0_1px_var(--border)]",
           "transition-colors duration-300 ease-[var(--ease-out-soft)]",
@@ -56,7 +56,7 @@ function OverviewLine({
       >
         <Icon className="size-3.5" strokeWidth={1.5} />
       </span>
-      <div className="min-w-0 pt-1.5">{children}</div>
+      <div className="min-w-0 pt-1">{children}</div>
     </li>
   );
 }
@@ -135,12 +135,12 @@ export function ProfileHero() {
           </div>
         </motion.div>
 
-        {/* Overview — document lines + ring icons */}
+        {/* Overview — ultra-minimal document lines (chanhdai) + ring icons */}
         <motion.div
           variants={reduceMotion ? undefined : fadeUp}
           className="mt-9"
         >
-          <div className="mb-3 flex items-center gap-3">
+          <div className="mb-2 flex items-center gap-3">
             <p className="text-[11px] font-medium tracking-[0.16em] text-muted-foreground uppercase">
               Overview
             </p>
@@ -150,7 +150,7 @@ export function ProfileHero() {
             />
           </div>
 
-          <ul className="flex flex-col gap-0.5">
+          <ul className="divide-y divide-border/70 border-y border-border/70">
             <OverviewLine icon={Briefcase}>
               <span className="font-medium">{person.role}</span>
               {currentRole ? (
