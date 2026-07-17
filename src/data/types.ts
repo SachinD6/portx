@@ -87,10 +87,15 @@ export type ExperienceItem = {
   company: string;
   role: string;
   location?: string;
+  locationType?: "Remote" | "On-site" | "Hybrid";
+  employmentType?: "Full-time" | "Part-time" | "Contract" | "Internship";
   start: string;
   end: string;
   description: string;
   highlights?: string[];
+  stack?: string[];
+  current?: boolean;
+  companyUrl?: string;
 };
 
 export type SkillCluster = {

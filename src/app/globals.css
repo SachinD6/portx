@@ -60,8 +60,8 @@
   --duration-slow: 700ms;
   --content-max: 42rem;
   --content-wide: 54rem;
-  --section-y: clamp(2.25rem, 4.5vw, 3.5rem);
-  --section-heading-gap: clamp(1.25rem, 2.5vw, 1.75rem);
+  --section-y: clamp(1.75rem, 3.5vw, 2.75rem);
+  --section-heading-gap: clamp(0.85rem, 1.5vw, 1.15rem);
 }
 
 /* Light editorial — Portal-inspired warm paper */
@@ -191,6 +191,7 @@
   .content-shell {
     width: min(100% - 2rem, var(--content-max));
     margin-inline: auto;
+    text-align: left;
   }
 
   .content-wide {

@@ -1,78 +1,141 @@
+"use client";
+
+import { motion, useReducedMotion } from "motion/react";
+
 import { Section } from "@/components/layout/section";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { experience } from "@/data";
+import { cn } from "@/lib/utils";
 
+/**
+ * Job history — primary signal for recruiters (ramx / chanhdai style).
+ * Placed near the top of the page on purpose.
+ */
 export function Experience() {
+  const reduceMotion = useReducedMotion();
+
   return (
     <Section id="experience" ariaLabelledBy="experience-heading">
       <Reveal>
         <SectionHeading
           id="experience-heading"
-          index="05"
+          index="01"
           eyebrow="Experience"
-          title="Where I've been"
+          title="Where I ship"
+          description="The strongest signal on this site—roles, ownership, and the stack I used to deliver."
         />
       </Reveal>
 
-      <div className="relative">
-        <div
-          className="absolute top-2 bottom-2 left-[0.7rem] w-px bg-border"
-          aria-hidden="true"
-        />
-
-        <ul className="space-y-3">
-          {experience.map((item, index) => (
-            <Reveal key={item.id} as="li" delay={index * 0.05}>
-              <div className="relative pl-8">
+      <ul className="space-y-3">
+        {experience.map((item, index) => (
+          <Reveal key={item.id} as="li" delay={index * 0.05}>
+            <motion.article
+              whileHover={
+                reduceMotion
+                  ? undefined
+                  : {
+                      y: -2,
+                      transition: {
+                        type: "spring",
+                        stiffness: 400,
+                        damping: 30,
+                      },
+                    }
+              }
+              className={cn(
+                "group relative overflow-hidden rounded-2xl border border-border bg-surface-elevated/90",
+                "transition-[border-color,box-shadow] duration-300 ease-[var(--ease-out-soft)]",
+                "hover:border-foreground/15 hover:shadow-[0_16px_40px_color-mix(in_oklch,var(--foreground)_5%,transparent)]",
+              )}
+            >
+              {/* Current accent bar */}
+              {item.current ? (
                 <span
-                  className="absolute top-5 left-[0.45rem] size-2.5 rounded-full border-2 border-background bg-primary shadow-[0_0_0_3px_color-mix(in_oklch,var(--primary)_12%,transparent)]"
+                  className="absolute inset-y-0 left-0 w-0.5 bg-primary"
                   aria-hidden="true"
                 />
-                <div className="group double-bezel">
-                  <div className="double-bezel-inner p-4 sm:p-5">
-                    <div className="relative z-[1] flex flex-wrap items-baseline justify-between gap-2">
-                      <p className="font-mono text-[11px] tracking-wide text-muted-foreground">
-                        {item.start} — {item.end}
-                      </p>
-                      {item.location ? (
-                        <p className="text-xs text-muted-foreground">
-                          {item.location}
-                        </p>
+              ) : null}
+
+              <div className="p-5 sm:p-6">
+                <div className="flex flex-wrap items-start justify-between gap-3">
+                  <div className="min-w-0">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <h3 className="text-base font-semibold tracking-tight text-foreground sm:text-lg">
+                        {item.role}
+                      </h3>
+                      {item.current ? (
+                        <span className="rounded-full bg-success/10 px-2 py-0.5 text-[10px] font-medium tracking-wide text-success uppercase">
+                          Current
+                        </span>
                       ) : null}
                     </div>
-                    <h3 className="relative z-[1] mt-1.5 text-base font-medium tracking-tight text-foreground sm:text-lg">
-                      {item.role}
-                    </h3>
-                    <p className="relative z-[1] text-sm text-muted-foreground">
-                      {item.company}
+                    <p className="mt-1 text-sm text-foreground/90">
+                      {item.companyUrl ? (
+                        <a
+                          href={item.companyUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="underline-offset-4 hover:underline"
+                        >
+                          {item.company}
+                        </a>
+                      ) : (
+                        item.company
+                      )}
                     </p>
-                    <p className="relative z-[1] mt-2 text-sm leading-relaxed text-muted-foreground">
-                      {item.description}
+                  </div>
+
+                  <div className="text-left sm:text-right">
+                    <p className="font-mono text-[11px] text-muted-foreground tabular-nums">
+                      {item.start} — {item.end}
                     </p>
-                    {item.highlights?.length ? (
-                      <ul className="relative z-[1] mt-3 space-y-1">
-                        {item.highlights.map((highlight) => (
-                          <li
-                            key={highlight}
-                            className="flex gap-2 text-sm text-foreground/85"
-                          >
-                            <span
-                              className="mt-2 size-1 shrink-0 rounded-full bg-primary/70"
-                              aria-hidden="true"
-                            />
-                            {highlight}
-                          </li>
-                        ))}
-                      </ul>
-                    ) : null}
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      {[item.location, item.locationType, item.employmentType]
+                        .filter(Boolean)
+                        .join(" · ")}
+                    </p>
                   </div>
                 </div>
+
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                  {item.description}
+                </p>
+
+                {item.highlights?.length ? (
+                  <ul className="mt-3 space-y-1.5">
+                    {item.highlights.map((highlight) => (
+                      <li
+                        key={highlight}
+                        className="flex gap-2 text-sm text-foreground/85"
+                      >
+                        <span
+                          className="mt-2 size-1 shrink-0 rounded-full bg-primary/70"
+                          aria-hidden="true"
+                        />
+                        {highlight}
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+
+                {item.stack?.length ? (
+                  <ul className="mt-4 flex flex-wrap gap-1.5">
+                    {item.stack.map((tech) => (
+                      <li
+                        key={tech}
+                        className="rounded-full border border-border bg-background/80 px-2.5 py-1 text-[11px] text-muted-foreground transition-colors group-hover:border-border group-hover:text-foreground/80"
+                      >
+                        {tech}
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
               </div>
-            </Reveal>
-          ))}
-        </ul>
-      </div>
+            </motion.article>
+          </Reveal>
+        ))}
+      </ul>
     </Section>
   );
 }

@@ -2,25 +2,34 @@ import type { CommandAction, NavItem } from "./types";
 
 /** Primary chrome nav — mix of home anchors and real pages */
 export const navigation: NavItem[] = [
+  { id: "experience", label: "Experience", href: "/#experience" },
   { id: "work", label: "Work", href: "/#work" },
   { id: "labs", label: "Labs", href: "/labs", page: true },
   { id: "blog", label: "Writing", href: "/blog", page: true },
-  { id: "approach", label: "Approach", href: "/#approach" },
   { id: "contact", label: "Contact", href: "/#contact" },
 ];
 
-/** Homepage sections for chapter rail + scroll spy */
+/**
+ * Homepage chapter rail — Experience first (strongest signal for recruiters).
+ */
 export const homeSections: NavItem[] = [
+  { id: "experience", label: "Experience", href: "#experience" },
   { id: "work", label: "Work", href: "#work" },
   { id: "writing", label: "Writing", href: "#writing" },
   { id: "labs", label: "Labs", href: "#labs" },
-  { id: "approach", label: "Approach", href: "#approach" },
-  { id: "experience", label: "Experience", href: "#experience" },
   { id: "stack", label: "Stack", href: "#stack" },
   { id: "contact", label: "Contact", href: "#contact" },
 ];
 
 export const commandActions: CommandAction[] = [
+  {
+    id: "goto-experience",
+    label: "Go to Experience",
+    description: "Roles & timeline",
+    action: "scroll",
+    sectionId: "experience",
+    keywords: ["jobs", "career", "work history"],
+  },
   {
     id: "goto-work",
     label: "Go to Work",

@@ -6,18 +6,18 @@ import { featuredProjects } from "@/data";
 
 export function SelectedWork() {
   return (
-    <Section id="work" ariaLabelledBy="work-heading" wide>
+    <Section id="work" ariaLabelledBy="work-heading">
       <Reveal>
         <SectionHeading
           id="work-heading"
-          index="01"
+          index="02"
           eyebrow="Selected work"
-          title="Stories, not inventories"
-          description="Each project is a case study: problem, approach, uniqueness, and impact—with numbers when they matter."
+          title="Case studies"
+          description="Stories with problem, approach, uniqueness, and impact—not a GitHub dump."
         />
       </Reveal>
 
-      <div className="mx-auto flex max-w-2xl flex-col gap-3">
+      <div className="flex flex-col gap-3">
         {featuredProjects.map((project, index) => (
           <Reveal key={project.id} delay={index * 0.05}>
             <ProjectCard project={project} index={index} />

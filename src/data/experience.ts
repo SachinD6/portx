@@ -2,18 +2,29 @@ import type { ExperienceItem } from "./types";
 
 export const experience: ExperienceItem[] = [
   {
-    id: "software-engineer-present",
+    id: "product-engineer-present",
     company: "Independent / Product work",
-    role: "Software Engineer",
-    location: "Remote",
+    role: "Product Engineer",
+    location: "India",
+    locationType: "Remote",
+    employmentType: "Full-time",
     start: "2024",
     end: "Present",
+    current: true,
     description:
-      "Building product surfaces and services end-to-end—from interaction design details to APIs, data, and deploy pipelines.",
+      "Shipping product interfaces and the services behind them—problem framing, React/Next surfaces, APIs, and deploy pipelines with measurable outcomes.",
     highlights: [
       "Owned features from problem framing to production",
-      "Shipped performant UIs with measurable outcomes",
-      "Set up lint, CI, and review habits that keep quality high",
+      "Built Portx: case-study portfolio system with CI and Pages deploys",
+      "Raised craft bar with lint, review, and performance habits",
+    ],
+    stack: [
+      "TypeScript",
+      "Next.js",
+      "React",
+      "Node.js",
+      "PostgreSQL",
+      "Tailwind",
     ],
   },
   {
@@ -21,13 +32,16 @@ export const experience: ExperienceItem[] = [
     company: "Early-stage product team",
     role: "Engineering Intern",
     location: "Remote",
+    locationType: "Remote",
+    employmentType: "Internship",
     start: "2023",
     end: "2024",
     description:
-      "Contributed across the stack on a small team: bug fixes that mattered, features with clear acceptance criteria, and docs that helped the next person.",
+      "Contributed across the stack on a small team: user-facing features, internal tools, and docs that helped the next person move faster.",
     highlights: [
       "Shipped user-facing features with code review rigor",
       "Improved internal tooling used daily by the team",
     ],
+    stack: ["TypeScript", "React", "Node.js", "SQL"],
   },
 ];

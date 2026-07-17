@@ -1,29 +1,28 @@
 import { SectionDivider } from "@/components/layout/section-divider";
-import { Approach } from "@/components/sections/approach";
 import { Contact } from "@/components/sections/contact";
 import { Experience } from "@/components/sections/experience";
-import { Hero } from "@/components/sections/hero";
 import { LabsPreview } from "@/components/sections/labs-preview";
+import { ProfileHero } from "@/components/sections/profile-hero";
 import { SelectedWork } from "@/components/sections/selected-work";
 import { Skills } from "@/components/sections/skills";
-import { StackMarquee } from "@/components/sections/stack-marquee";
 import { Writing } from "@/components/sections/writing";
 
+/**
+ * Homepage structure inspired by chanhdai.com + ramx.in:
+ * Profile → Experience (job first) → Work → Writing → Labs → Stack → Contact
+ */
 export default function Home() {
   return (
     <main id="main">
-      <Hero />
-      <StackMarquee />
+      <ProfileHero />
+      <SectionDivider />
+      <Experience />
       <SectionDivider />
       <SelectedWork />
       <SectionDivider />
       <Writing />
       <SectionDivider />
       <LabsPreview />
-      <SectionDivider />
-      <Approach />
-      <SectionDivider />
-      <Experience />
       <SectionDivider />
       <Skills />
       <Contact />
