@@ -43,7 +43,7 @@ export function Writing() {
                   {featured.readingMinutes} min
                 </span>
               </div>
-              <h3 className="mt-3 text-lg font-semibold tracking-tight text-foreground transition-colors group-hover:text-primary sm:text-xl">
+              <h3 className="mt-3 font-display text-xl tracking-tight text-foreground transition-colors group-hover:text-primary sm:text-2xl">
                 {featured.title}
               </h3>
               <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">
@@ -82,7 +82,7 @@ export function Writing() {
                     <span className="mx-1.5 text-border">·</span>
                     {post.readingMinutes} min
                   </p>
-                  <h3 className="mt-2 text-[0.95rem] font-medium tracking-tight text-foreground transition-colors group-hover:text-primary">
+                  <h3 className="mt-2 font-display text-lg tracking-tight text-foreground transition-colors group-hover:text-primary">
                     {post.title}
                   </h3>
                   <p className="mt-1.5 flex-1 text-sm leading-relaxed text-muted-foreground">

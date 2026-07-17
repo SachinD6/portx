@@ -33,7 +33,7 @@ export function Skills() {
                   <span className="font-mono text-[11px] text-muted-foreground tabular-nums">
                     {String(index + 1).padStart(2, "0")}
                   </span>
-                  <h3 className="text-sm font-semibold tracking-tight text-foreground">
+                  <h3 className="font-display text-base tracking-tight text-foreground sm:text-lg">
                     {cluster.title}
                   </h3>
                 </div>

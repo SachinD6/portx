@@ -61,7 +61,7 @@ export function Experience() {
                   <div className="flex flex-wrap items-start justify-between gap-2">
                     <div className="min-w-0">
                       <div className="flex flex-wrap items-center gap-2">
-                        <h3 className="text-base font-semibold tracking-tight text-foreground sm:text-lg">
+                        <h3 className="font-display text-xl tracking-tight text-foreground sm:text-[1.35rem]">
                           {item.role}
                         </h3>
                         {item.current ? (

@@ -35,14 +35,14 @@ export default function BlogIndexPage() {
             <li key={post.slug}>
               <Link
                 href={`/blog/${post.slug}`}
-                className="group block rounded-2xl border border-border bg-surface-elevated/60 p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-foreground/15"
+                className="group block rounded-2xl border border-border bg-surface-elevated p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-foreground/15"
               >
                 <p className="font-mono text-[11px] text-muted-foreground">
                   {post.publishedAt}
                   <span className="mx-1.5 text-border">·</span>
                   {post.readingMinutes} min
                 </p>
-                <h2 className="mt-2 text-lg font-medium tracking-tight text-foreground transition-colors group-hover:text-primary">
+                <h2 className="mt-2 font-display text-xl tracking-tight text-foreground transition-colors group-hover:text-primary">
                   {post.title}
                 </h2>
                 <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">

@@ -42,7 +42,7 @@ export function LabsPreview() {
                 >
                   {statusLabel[item.status]}
                 </span>
-                <h3 className="mt-3 text-base font-medium tracking-tight text-foreground">
+                <h3 className="mt-3 font-display text-lg tracking-tight text-foreground">
                   {item.href ? (
                     <Link
                       href={item.href}

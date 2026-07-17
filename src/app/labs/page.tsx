@@ -48,7 +48,7 @@ export default function LabsPage() {
                 >
                   {statusLabel[item.status]}
                 </span>
-                <h2 className="mt-3 text-base font-medium tracking-tight text-foreground group-hover:text-primary">
+                <h2 className="mt-3 font-display text-lg tracking-tight text-foreground group-hover:text-primary">
                   {item.title}
                 </h2>
                 <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">

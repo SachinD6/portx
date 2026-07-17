@@ -59,7 +59,7 @@ export function SectionHeading({
       {title ? (
         <h2
           id={id}
-          className="text-lg font-semibold tracking-tight text-foreground sm:text-xl"
+          className="font-display text-[clamp(1.5rem,3.2vw,1.85rem)] tracking-tight text-foreground"
         >
           {title}
         </h2>

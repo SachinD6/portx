@@ -36,13 +36,13 @@ function OverviewItem({ icon, label, children }: OverviewItemProps) {
   return (
     <div
       className={cn(
-        "flex gap-3 rounded-xl border border-border/70 bg-muted/40 px-3.5 py-3",
+        "flex gap-3 rounded-xl border border-border/80 bg-surface-elevated px-3.5 py-3",
         "transition-colors duration-300 ease-[var(--ease-out-soft)]",
-        "hover:border-border hover:bg-muted/65",
+        "hover:border-foreground/15",
       )}
     >
       <span
-        className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-border/80 bg-surface-elevated text-foreground/80"
+        className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-border bg-background text-foreground/75"
         aria-hidden="true"
       >
         {icon}
@@ -147,7 +147,8 @@ export function ProfileHero() {
             />
           </div>
 
-          <div className="grid gap-2.5 sm:grid-cols-2">
+          {/* Stacked one-over-another (not a 2-col grid) */}
+          <div className="flex flex-col gap-2.5">
             <OverviewItem
               icon={<Briefcase className="size-4" strokeWidth={1.5} />}
               label="Role"
