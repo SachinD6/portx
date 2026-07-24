@@ -4,6 +4,7 @@ import { ArrowUpRight } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
 
+import { ThinkingOrb } from "@/components/effects/thinking-orb";
 import type { Project } from "@/data";
 import { springSoft } from "@/lib/motion";
 import { cn } from "@/lib/utils";
@@ -13,8 +14,12 @@ type ProjectCardProps = {
   index: number;
 };
 
+/** Only TopTools gets the agent orb — signal autonomy without spamming every card */
+const AGENT_PROJECT_IDS = new Set(["toptools"]);
+
 export function ProjectCard({ project, index }: ProjectCardProps) {
   const reduceMotion = useReducedMotion();
+  const showAgentOrb = AGENT_PROJECT_IDS.has(project.id);
 
   return (
     <motion.article
@@ -33,7 +38,14 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div className="min-w-0 flex-1 space-y-2.5">
             {project.metric ? (
-              <p className="inline-flex max-w-full rounded-full border border-border bg-background/70 px-2.5 py-1 text-[10px] font-medium tracking-[0.12em] break-words text-muted-foreground uppercase">
+              <p className="inline-flex max-w-full items-center gap-2 rounded-full border border-border bg-background/70 px-2.5 py-1 text-[10px] font-medium tracking-[0.12em] break-words text-muted-foreground uppercase">
+                {showAgentOrb ? (
+                  <ThinkingOrb
+                    state="shaping"
+                    size={20}
+                    aria-label="Agent pipeline active"
+                  />
+                ) : null}
                 {project.metric}
               </p>
             ) : null}

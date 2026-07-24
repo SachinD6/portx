@@ -3,14 +3,22 @@
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
 
+import { ThinkingOrb, type OrbState } from "@/components/effects/thinking-orb";
 import { AiBrandIcon } from "@/components/icons/ai-brand-icons";
 import { getPrimaryModel, nowUsing } from "@/data";
 import { cn } from "@/lib/utils";
 
+/** Map each model to an agent-style orb verb */
+const modelOrbState: Record<string, OrbState> = {
+  "grok-4-5": "working",
+  "kimi-k3": "searching",
+  "claude-sonnet": "composing",
+  "gpt-5": "solving",
+};
+
 /**
  * Hero-inline “now using” strip.
- * Mobile: two-row (copy + brand picker) so picker never crushes text.
- * Desktop: compact single row.
+ * Thinking orb (thinking-orbs) for AI liveness; brand chips for model pick.
  */
 export function NowUsingWidget({ className }: { className?: string }) {
   const reduceMotion = useReducedMotion();
@@ -20,6 +28,7 @@ export function NowUsingWidget({ className }: { className?: string }) {
   const [paused, setPaused] = useState(false);
 
   const focused = roster.find((m) => m.id === focusId) ?? primary;
+  const orbState = modelOrbState[focused.id] ?? "listening";
 
   useEffect(() => {
     if (reduceMotion || paused || roster.length < 2) return;
@@ -45,30 +54,18 @@ export function NowUsingWidget({ className }: { className?: string }) {
       aria-label={`${nowUsing.label}: ${focused.name}`}
     >
       <div className="flex min-w-0 flex-1 items-center gap-2.5">
-        {/* Brand mark */}
+        {/* thinking-orbs — agent liveness, not brand logo */}
         <span
-          className={cn(
-            "relative flex size-9 shrink-0 items-center justify-center rounded-full sm:size-8",
-            "bg-foreground text-background",
-          )}
+          className="flex size-9 shrink-0 items-center justify-center sm:size-8"
           aria-hidden="true"
         >
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.span
-              key={focused.id}
-              initial={reduceMotion ? false : { opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={reduceMotion ? undefined : { opacity: 0, scale: 0.85 }}
-              transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-              className="flex"
-            >
-              <AiBrandIcon brand={focused.brand} className="size-3.5" />
-            </motion.span>
-          </AnimatePresence>
-          <span className="absolute -right-0.5 -bottom-0.5 size-2 rounded-full border-[1.5px] border-background bg-success" />
+          <ThinkingOrb
+            state={orbState}
+            size={20}
+            aria-label={`${focused.name} · ${orbState}`}
+          />
         </span>
 
-        {/* Copy — free to use full width on mobile (picker on row below) */}
         <div className="min-w-0 flex-1 pr-0.5 sm:pr-1">
           <p className="flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-[9px] font-medium tracking-[0.14em] text-muted-foreground uppercase">
             {nowUsing.label}
@@ -97,7 +94,6 @@ export function NowUsingWidget({ className }: { className?: string }) {
         </div>
       </div>
 
-      {/* Brand picker — own row on mobile, inline on sm+ */}
       <ul
         className="flex shrink-0 items-center justify-end gap-0.5 border-t border-border/60 pt-1.5 sm:border-0 sm:pt-0"
         role="list"
