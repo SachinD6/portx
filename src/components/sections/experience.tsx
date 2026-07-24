@@ -35,7 +35,7 @@ export function Experience() {
         <ul className="flex flex-col gap-5 sm:gap-6">
           {experience.map((item, index) => (
             <Reveal key={item.id} as="li" delay={index * 0.05}>
-              <article className="relative grid grid-cols-[2.25rem_1fr] gap-3 sm:gap-4">
+              <article className="relative grid min-w-0 grid-cols-[2.25rem_minmax(0,1fr)] gap-3 sm:gap-4">
                 {/* Node on the rail */}
                 <div className="relative z-[1] flex justify-center pt-5">
                   <span
@@ -53,15 +53,16 @@ export function Experience() {
                 {/* Content panel — flat soft shade, not project-card bezel */}
                 <div
                   className={cn(
-                    "rounded-2xl border border-transparent bg-muted/30 px-4 py-4 transition-colors duration-300 sm:px-5 sm:py-5",
+                    "min-w-0 rounded-2xl border border-transparent bg-muted/30 px-3.5 py-3.5 transition-colors duration-300 sm:px-5 sm:py-5",
                     "hover:border-border/80 hover:bg-muted/50",
                     item.current && "border-border/60 bg-muted/45",
                   )}
                 >
-                  <div className="flex flex-wrap items-start justify-between gap-2">
+                  {/* Meta stacks full-width on mobile; side-by-side from sm */}
+                  <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between sm:gap-3">
                     <div className="min-w-0">
                       <div className="flex flex-wrap items-center gap-2">
-                        <h3 className="font-display text-xl tracking-tight text-foreground sm:text-[1.35rem]">
+                        <h3 className="font-display text-[1.15rem] tracking-tight break-words text-foreground sm:text-[1.35rem]">
                           {item.role}
                         </h3>
                         {item.current ? (
@@ -76,7 +77,7 @@ export function Experience() {
                             href={item.companyUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="underline-offset-4 hover:underline"
+                            className="inline-flex min-h-9 items-center underline-offset-4 hover:underline"
                           >
                             {item.company}
                           </a>
@@ -85,11 +86,11 @@ export function Experience() {
                         )}
                       </p>
                     </div>
-                    <div className="text-left sm:text-right">
+                    <div className="shrink-0 text-left sm:text-right">
                       <p className="font-mono text-[11px] text-muted-foreground tabular-nums">
                         {item.start} — {item.end}
                       </p>
-                      <p className="mt-0.5 text-xs text-muted-foreground">
+                      <p className="mt-0.5 text-xs break-words text-muted-foreground">
                         {[item.location, item.locationType, item.employmentType]
                           .filter(Boolean)
                           .join(" · ")}

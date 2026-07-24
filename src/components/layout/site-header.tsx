@@ -75,10 +75,10 @@ export function SiteHeader() {
         Skip to content
       </a>
 
-      <header className="pointer-events-none fixed inset-x-0 top-0 z-50 flex justify-center px-3 pt-4 sm:px-4 sm:pt-5">
+      <header className="pointer-events-none fixed inset-x-0 top-0 z-50 flex justify-center pt-[max(0.75rem,env(safe-area-inset-top,0px))] pr-[max(0.625rem,env(safe-area-inset-right,0px))] pl-[max(0.625rem,env(safe-area-inset-left,0px))] sm:pt-[max(1.25rem,env(safe-area-inset-top,0px))] sm:pr-[max(1rem,env(safe-area-inset-right,0px))] sm:pl-[max(1rem,env(safe-area-inset-left,0px))]">
         <div
           className={cn(
-            "pointer-events-auto flex w-full max-w-2xl items-center gap-1 rounded-full border px-1.5 py-1.5 transition-[background-color,box-shadow,border-color] duration-500 ease-[var(--ease-out-expo)] sm:px-2",
+            "pointer-events-auto flex w-full max-w-2xl min-w-0 items-center gap-1 rounded-full border px-1.5 py-1.5 transition-[background-color,box-shadow,border-color] duration-500 ease-[var(--ease-out-expo)] sm:px-2",
             scrolled
               ? "border-border/90 bg-surface-elevated/90 shadow-[0_12px_40px_color-mix(in_oklch,var(--foreground)_7%,transparent)] backdrop-blur-[var(--nav-blur)]"
               : "border-border/50 bg-surface-elevated/70 backdrop-blur-[var(--nav-blur)]",
@@ -87,10 +87,10 @@ export function SiteHeader() {
           <Link
             href="/"
             onClick={() => setOpen(false)}
-            className="flex items-center gap-2 rounded-full py-1 pr-2.5 pl-1 transition-colors hover:bg-muted/80"
+            className="flex min-h-11 min-w-11 items-center gap-2 rounded-full py-1 pr-2.5 pl-1 transition-colors hover:bg-muted/80"
             aria-label="Home"
           >
-            <span className="flex size-8 items-center justify-center rounded-full bg-primary text-[11px] font-semibold tracking-wide text-primary-foreground">
+            <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary text-[11px] font-semibold tracking-wide text-primary-foreground">
               {person.firstName.slice(0, 1)}
               {person.lastName.slice(0, 1)}
             </span>
@@ -185,7 +185,7 @@ export function SiteHeader() {
 
             <button
               type="button"
-              className="inline-flex size-9 items-center justify-center rounded-full text-foreground transition-colors hover:bg-muted md:hidden"
+              className="touch-target inline-flex size-11 items-center justify-center rounded-full text-foreground transition-colors hover:bg-muted md:hidden"
               aria-expanded={open}
               aria-label={open ? "Close menu" : "Open menu"}
               onClick={() => setOpen((v) => !v)}
@@ -228,7 +228,7 @@ export function SiteHeader() {
             />
             <motion.nav
               aria-label="Mobile"
-              className="absolute inset-x-4 top-20 rounded-[1.35rem] border border-border bg-surface-elevated p-2 shadow-[0_20px_60px_color-mix(in_oklch,var(--foreground)_8%,transparent)]"
+              className="absolute inset-x-3 top-[max(4.75rem,calc(env(safe-area-inset-top,0px)+3.75rem))] max-h-[min(70dvh,calc(100dvh-6rem))] overflow-y-auto overscroll-contain rounded-[1.35rem] border border-border bg-surface-elevated p-2 shadow-[0_20px_60px_color-mix(in_oklch,var(--foreground)_8%,transparent)] sm:inset-x-4"
               initial={reduceMotion ? false : { opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 10 }}
@@ -237,7 +237,7 @@ export function SiteHeader() {
               {navigation.map((item, index) => {
                 const isActive = linkActive(item);
                 const shared = cn(
-                  "flex w-full items-center justify-between rounded-2xl px-4 py-3 text-left text-[15px] font-medium transition-colors",
+                  "flex min-h-12 w-full items-center justify-between rounded-2xl px-4 py-3.5 text-left text-[15px] font-medium transition-colors",
                   isActive
                     ? "bg-muted text-foreground"
                     : "text-foreground hover:bg-muted/70",
@@ -274,14 +274,14 @@ export function SiteHeader() {
                   </button>
                 );
               })}
-              <div className="mt-1 grid grid-cols-2 gap-1 border-t border-border/70 p-1 pt-2">
+              <div className="mt-1 grid grid-cols-2 gap-1 border-t border-border/70 p-1 pt-2 pb-[max(0.25rem,env(safe-area-inset-bottom,0px))]">
                 <button
                   type="button"
                   onClick={() => {
                     setOpen(false);
                     openPalette();
                   }}
-                  className="flex items-center justify-center gap-2 rounded-xl px-3 py-2.5 text-sm text-muted-foreground hover:bg-muted hover:text-foreground"
+                  className="flex min-h-11 items-center justify-center gap-2 rounded-xl px-3 py-2.5 text-sm text-muted-foreground hover:bg-muted hover:text-foreground"
                 >
                   <Command className="size-3.5" strokeWidth={1.5} />
                   {modKey}K
@@ -291,7 +291,7 @@ export function SiteHeader() {
                     href={product.bookingUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="rounded-xl bg-primary px-3 py-2.5 text-center text-sm font-medium text-primary-foreground"
+                    className="flex min-h-11 items-center justify-center rounded-xl bg-primary px-3 py-2.5 text-center text-sm font-medium text-primary-foreground"
                     onClick={() => setOpen(false)}
                   >
                     Book
@@ -300,7 +300,7 @@ export function SiteHeader() {
                   <button
                     type="button"
                     onClick={() => goHash("contact")}
-                    className="rounded-xl bg-primary px-3 py-2.5 text-sm font-medium text-primary-foreground"
+                    className="min-h-11 rounded-xl bg-primary px-3 py-2.5 text-sm font-medium text-primary-foreground"
                   >
                     Contact
                   </button>

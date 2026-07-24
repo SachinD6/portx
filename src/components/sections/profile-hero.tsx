@@ -44,7 +44,7 @@ function OverviewLine({
   children: ReactNode;
 }) {
   return (
-    <li className="group flex items-start gap-2.5 py-1.5 text-sm leading-snug text-foreground sm:text-[0.95rem]">
+    <li className="group flex items-start gap-2.5 py-2 text-sm leading-snug text-foreground sm:py-1.5 sm:text-[0.95rem]">
       <span
         className={cn(
           "mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-full",
@@ -57,7 +57,9 @@ function OverviewLine({
       >
         <Icon className="size-3.5" strokeWidth={1.5} />
       </span>
-      <div className="min-w-0 pt-1">{children}</div>
+      <div className="min-w-0 flex-1 pt-1 [overflow-wrap:anywhere] break-words">
+        {children}
+      </div>
     </li>
   );
 }
@@ -78,7 +80,7 @@ export function ProfileHero() {
   return (
     <section
       id="top"
-      className="px-4 pt-28 pb-8 sm:pt-32 sm:pb-10"
+      className="pt-[max(6.75rem,calc(env(safe-area-inset-top,0px)+5.25rem))] pb-7 sm:pt-32 sm:pb-10"
       aria-labelledby="hero-heading"
     >
       <motion.div
@@ -87,16 +89,16 @@ export function ProfileHero() {
         initial={reduceMotion ? false : "hidden"}
         animate="visible"
       >
-        {/* Identity row */}
+        {/* Identity — stack monogram above name on narrow screens */}
         <motion.div
           variants={reduceMotion ? undefined : fadeUp}
-          className="flex items-start gap-4 sm:gap-5"
+          className="flex flex-col items-start gap-3.5 sm:flex-row sm:gap-5"
         >
           <button
             type="button"
             onClick={() => setLit((v) => !v)}
             className={cn(
-              "relative flex size-16 shrink-0 items-center justify-center rounded-2xl border text-lg font-semibold tracking-tight transition-all duration-500 ease-[var(--ease-out-expo)] sm:size-[4.5rem] sm:text-xl",
+              "relative flex size-14 shrink-0 items-center justify-center rounded-2xl border text-base font-semibold tracking-tight transition-all duration-500 ease-[var(--ease-out-expo)] sm:size-[4.5rem] sm:text-xl",
               lit
                 ? "border-border bg-primary text-primary-foreground shadow-[0_0_0_1px_color-mix(in_oklch,var(--primary)_20%,transparent),0_12px_40px_color-mix(in_oklch,var(--primary)_18%,transparent)]"
                 : "border-border bg-muted text-muted-foreground",
@@ -114,7 +116,7 @@ export function ProfileHero() {
             />
           </button>
 
-          <div className="min-w-0 pt-0.5">
+          <div className="w-full min-w-0 pt-0.5 sm:w-auto">
             <div className="flex flex-wrap items-center gap-2">
               <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface-elevated px-2.5 py-0.5 text-[11px] text-muted-foreground">
                 <span className="relative flex size-1.5">
@@ -126,7 +128,7 @@ export function ProfileHero() {
             </div>
             <h1
               id="hero-heading"
-              className="mt-2 font-display text-[clamp(2rem,6vw,2.75rem)] leading-[1.05] tracking-tight text-foreground"
+              className="mt-2 font-display text-[clamp(1.85rem,7.5vw,2.75rem)] leading-[1.05] tracking-tight break-words text-foreground"
             >
               {person.name}
             </h1>
@@ -139,7 +141,7 @@ export function ProfileHero() {
         {/* Overview — ultra-minimal document lines (chanhdai) + ring icons */}
         <motion.div
           variants={reduceMotion ? undefined : fadeUp}
-          className="mt-9"
+          className="mt-7 sm:mt-9"
         >
           <div className="mb-2 flex items-center gap-3">
             <p className="text-[11px] font-medium tracking-[0.16em] text-muted-foreground uppercase">
@@ -179,7 +181,7 @@ export function ProfileHero() {
               <button
                 type="button"
                 onClick={handleCopyEmail}
-                className="font-mono text-[0.9em] underline-offset-4 transition-colors hover:underline"
+                className="max-w-full text-left font-mono text-[0.9em] break-all underline-offset-4 transition-colors hover:underline"
               >
                 {person.email}
               </button>
@@ -187,10 +189,10 @@ export function ProfileHero() {
           </ul>
         </motion.div>
 
-        {/* Social — icon-only rings, clean & quiet */}
+        {/* Social — icon-only rings, ≥44px hit targets */}
         <motion.ul
           variants={reduceMotion ? undefined : fadeUp}
-          className="mt-6 flex flex-wrap items-center gap-2"
+          className="mt-5 flex flex-wrap items-center gap-2 sm:mt-6"
         >
           {socials.map((social) => {
             const Icon = iconMap[social.icon];
@@ -205,7 +207,7 @@ export function ProfileHero() {
                   aria-label={social.label}
                   title={social.label}
                   className={cn(
-                    "group inline-flex size-10 items-center justify-center rounded-full",
+                    "group touch-target inline-flex size-11 items-center justify-center rounded-full",
                     "border border-border/90 bg-background text-muted-foreground",
                     "shadow-[0_0_0_1px_transparent]",
                     "transition-all duration-300 ease-[var(--ease-out-soft)]",
@@ -223,23 +225,27 @@ export function ProfileHero() {
         {/* Tiny now-using bar — ramx energy, hero-inline */}
         <motion.div
           variants={reduceMotion ? undefined : fadeUp}
-          className="mt-5"
+          className="mt-4 w-full min-w-0 sm:mt-5"
         >
           <NowUsingWidget className="w-full max-w-md sm:w-auto" />
         </motion.div>
 
         <motion.p
           variants={reduceMotion ? undefined : fadeUp}
-          className="mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-[0.95rem]"
+          className="mt-5 max-w-xl text-sm leading-relaxed text-muted-foreground sm:mt-6 sm:text-[0.95rem]"
         >
           {person.bio}
         </motion.p>
 
         <motion.div
           variants={reduceMotion ? undefined : fadeUp}
-          className="mt-7 flex flex-wrap gap-2.5"
+          className="mt-6 flex w-full flex-col gap-2.5 sm:mt-7 sm:flex-row sm:flex-wrap"
         >
-          <MagneticButton href="#experience" showArrow={false}>
+          <MagneticButton
+            href="#experience"
+            showArrow={false}
+            className="w-full sm:w-auto"
+          >
             View experience
           </MagneticButton>
           {product.bookingUrl ? (
@@ -247,6 +253,7 @@ export function ProfileHero() {
               href={product.bookingUrl}
               external
               variant="secondary"
+              className="w-full sm:w-auto"
             >
               {product.bookingLabel}
             </MagneticButton>
@@ -255,11 +262,17 @@ export function ProfileHero() {
               variant="secondary"
               showArrow={false}
               onClick={handleCopyEmail}
+              className="w-full sm:w-auto"
             >
               Copy email
             </MagneticButton>
           )}
-          <MagneticButton href="#work" variant="ghost" showArrow={false}>
+          <MagneticButton
+            href="#work"
+            variant="ghost"
+            showArrow={false}
+            className="w-full sm:w-auto"
+          >
             Case studies
           </MagneticButton>
         </motion.div>

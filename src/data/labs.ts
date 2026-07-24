@@ -17,7 +17,7 @@ export const labs: LabItem[] = [
       "Typed problem → approach → uniqueness → impact shape so every project ships as a story.",
     status: "shipped",
     tags: ["TypeScript", "content"],
-    href: "/work/portx",
+    href: "/work/freshergo",
   },
   {
     id: "island-nav",

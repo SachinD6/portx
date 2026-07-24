@@ -3,13 +3,22 @@
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
 
+import { ThinkingOrb, type OrbState } from "@/components/effects/thinking-orb";
 import { AiBrandIcon } from "@/components/icons/ai-brand-icons";
 import { getPrimaryModel, nowUsing } from "@/data";
 import { cn } from "@/lib/utils";
 
+/** Map each model to an agent-style orb verb */
+const modelOrbState: Record<string, OrbState> = {
+  "grok-4-5": "working",
+  "kimi-k3": "searching",
+  "claude-sonnet": "composing",
+  "gpt-5": "solving",
+};
+
 /**
- * Hero-inline “now using” strip — single row, tiny footprint.
- * Brand cover + model name + icon selector. Not a section.
+ * Hero-inline “now using” strip.
+ * Thinking orb (thinking-orbs) for AI liveness; brand chips for model pick.
  */
 export function NowUsingWidget({ className }: { className?: string }) {
   const reduceMotion = useReducedMotion();
@@ -19,6 +28,7 @@ export function NowUsingWidget({ className }: { className?: string }) {
   const [paused, setPaused] = useState(false);
 
   const focused = roster.find((m) => m.id === focusId) ?? primary;
+  const orbState = modelOrbState[focused.id] ?? "listening";
 
   useEffect(() => {
     if (reduceMotion || paused || roster.length < 2) return;
@@ -36,65 +46,58 @@ export function NowUsingWidget({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "inline-flex max-w-full items-center gap-2.5 rounded-full border border-border/90 bg-muted/40 py-1.5 pr-1.5 pl-1.5",
+        "flex w-full max-w-full flex-col gap-2 rounded-2xl border border-border/90 bg-muted/40 p-2",
         "shadow-[0_1px_0_color-mix(in_oklch,var(--foreground)_3%,transparent)]",
+        "sm:inline-flex sm:w-auto sm:flex-row sm:items-center sm:gap-2.5 sm:rounded-full sm:py-1.5 sm:pr-1.5 sm:pl-1.5",
         className,
       )}
       aria-label={`${nowUsing.label}: ${focused.name}`}
     >
-      {/* Brand mark */}
-      <span
-        className={cn(
-          "relative flex size-8 shrink-0 items-center justify-center rounded-full",
-          "bg-foreground text-background",
-        )}
-        aria-hidden="true"
-      >
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.span
-            key={focused.id}
-            initial={reduceMotion ? false : { opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={reduceMotion ? undefined : { opacity: 0, scale: 0.85 }}
-            transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-            className="flex"
-          >
-            <AiBrandIcon brand={focused.brand} className="size-3.5" />
-          </motion.span>
-        </AnimatePresence>
-        <span className="absolute -right-0.5 -bottom-0.5 size-2 rounded-full border-[1.5px] border-background bg-success" />
-      </span>
+      <div className="flex min-w-0 flex-1 items-center gap-2.5">
+        {/* thinking-orbs — agent liveness, not brand logo */}
+        <span
+          className="flex size-9 shrink-0 items-center justify-center sm:size-8"
+          aria-hidden="true"
+        >
+          <ThinkingOrb
+            state={orbState}
+            size={20}
+            aria-label={`${focused.name} · ${orbState}`}
+          />
+        </span>
 
-      {/* Copy — one tight column */}
-      <div className="min-w-0 flex-1 pr-1">
-        <p className="flex items-center gap-1.5 text-[9px] font-medium tracking-[0.14em] text-muted-foreground uppercase">
-          {nowUsing.label}
-          <span className="font-sans tracking-normal text-muted-foreground/70 normal-case">
-            · {nowUsing.liveLabel}
-          </span>
-        </p>
-        <div className="min-h-[1.1rem] overflow-hidden">
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.p
-              key={focused.id}
-              initial={reduceMotion ? false : { opacity: 0, y: 4 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={reduceMotion ? undefined : { opacity: 0, y: -3 }}
-              transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-              className="truncate text-[13px] leading-tight font-medium text-foreground"
-            >
-              {focused.name}
-              <span className="font-normal text-muted-foreground">
-                {" "}
-                · {focused.provider}
-              </span>
-            </motion.p>
-          </AnimatePresence>
+        <div className="min-w-0 flex-1 pr-0.5 sm:pr-1">
+          <p className="flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-[9px] font-medium tracking-[0.14em] text-muted-foreground uppercase">
+            {nowUsing.label}
+            <span className="font-sans tracking-normal text-muted-foreground/70 normal-case">
+              · {nowUsing.liveLabel}
+            </span>
+          </p>
+          <div className="min-h-[1.15rem] overflow-hidden">
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.p
+                key={focused.id}
+                initial={reduceMotion ? false : { opacity: 0, y: 4 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={reduceMotion ? undefined : { opacity: 0, y: -3 }}
+                transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                className="truncate text-[13px] leading-tight font-medium text-foreground"
+              >
+                {focused.name}
+                <span className="font-normal text-muted-foreground">
+                  {" "}
+                  · {focused.provider}
+                </span>
+              </motion.p>
+            </AnimatePresence>
+          </div>
         </div>
       </div>
 
-      {/* Brand picker */}
-      <ul className="flex shrink-0 items-center gap-0.5" role="list">
+      <ul
+        className="flex shrink-0 items-center justify-end gap-0.5 border-t border-border/60 pt-1.5 sm:border-0 sm:pt-0"
+        role="list"
+      >
         {roster.map((model) => {
           const isActive = model.id === focused.id;
           return (
@@ -109,13 +112,16 @@ export function NowUsingWidget({ className }: { className?: string }) {
                 aria-label={model.name}
                 aria-pressed={isActive}
                 className={cn(
-                  "flex size-7 items-center justify-center rounded-full transition-colors duration-200",
+                  "flex size-9 items-center justify-center rounded-full transition-colors duration-200 sm:size-7",
                   isActive
                     ? "bg-foreground text-background"
                     : "text-muted-foreground hover:bg-background hover:text-foreground",
                 )}
               >
-                <AiBrandIcon brand={model.brand} className="size-3" />
+                <AiBrandIcon
+                  brand={model.brand}
+                  className="size-3.5 sm:size-3"
+                />
               </button>
             </li>
           );

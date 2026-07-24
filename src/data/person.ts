@@ -4,18 +4,18 @@ export const person: Person = {
   name: "Sachin Duhan",
   firstName: "Sachin",
   lastName: "Duhan",
-  role: "Product Engineer",
+  role: "Full Stack Developer",
   headline:
-    "I design and ship product interfaces with systems depth—React, Next.js, and the APIs that power them.",
+    "Full stack at WeFrameTech—headless CMS & commerce—plus products like FresherGo (12k+ visits/mo).",
   positioning:
-    "Frontend-focused product engineer for teams that care about craft, clarity, and measurable outcomes—not generic full-stack labels.",
-  bio: "I care about the path from problem to shipped interface: clear defaults, honest empty states, and services that stay understandable under load. I want work where product thinking and engineering sit in the same seat.",
+    "Full stack engineer shipping client products with Sanity, Payload, and Medusa, and growing independent products (FresherGo, TopTools) end-to-end.",
+  bio: "I care about the path from problem to shipped product: clear defaults, honest empty states, and systems that stay maintainable. By day I build headless commerce and CMS-backed experiences at WeFrameTech; on the side I ship FresherGo for entry-level tech jobs and TopTools—an autonomous tools site driven by AI agents.",
   location: "India",
-  email: "hello@sachinduhan.dev",
+  email: "sachinduhan.work@gmail.com",
   githubUsername: "SachinD6",
   availability: {
     status: "available",
-    label: "Open to product engineering roles",
+    label: "Available for work",
   },
   resumeUrl: "/resume.pdf",
 };

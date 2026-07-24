@@ -163,11 +163,25 @@
 
   html {
     @apply scroll-smooth font-sans;
-    scroll-padding-top: 6rem;
+    scroll-padding-top: calc(6rem + env(safe-area-inset-top, 0px));
+    overflow-x: clip;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
 
   body {
     @apply bg-background text-foreground antialiased;
+    overflow-x: clip;
+    /* Notched devices — keep content clear of home indicator / sides */
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
+    /* Instant taps; soft editorial highlight */
+    -webkit-tap-highlight-color: color-mix(
+      in oklch,
+      var(--primary) 14%,
+      transparent
+    );
+    touch-action: manipulation;
     font-feature-settings:
       "ss01" on,
       "cv11" on;
@@ -188,19 +202,36 @@
     font-family: var(--font-display), ui-serif, Georgia, serif;
   }
 
+  /* Tighter gutters on small phones (≈10px/side), roomier from sm up */
   .content-shell {
-    width: min(100% - 2rem, var(--content-max));
+    width: min(100% - 1.25rem, var(--content-max));
     margin-inline: auto;
     text-align: left;
   }
 
   .content-wide {
-    width: min(100% - 2rem, var(--content-wide));
+    width: min(100% - 1.25rem, var(--content-wide));
     margin-inline: auto;
+  }
+
+  @media (min-width: 640px) {
+    .content-shell {
+      width: min(100% - 2rem, var(--content-max));
+    }
+
+    .content-wide {
+      width: min(100% - 2rem, var(--content-wide));
+    }
   }
 
   .section-pad {
     padding-block: var(--section-y);
+  }
+
+  /* ≥44px touch target without forcing layout on desktop */
+  .touch-target {
+    min-height: 2.75rem;
+    min-width: 2.75rem;
   }
 
   .section-heading-gap {
@@ -420,10 +451,10 @@ footer .marquee-track {
   animation: ink-draw 1s var(--ease-out-expo) 0.55s both;
 }
 
-/* Thin section rule */
+/* Thin section rule — match content-shell gutters */
 .section-rule {
   height: 1px;
-  width: min(100% - 2rem, var(--content-max));
+  width: min(100% - 1.25rem, var(--content-max));
   margin-inline: auto;
   background: linear-gradient(
     90deg,
@@ -432,6 +463,12 @@ footer .marquee-track {
     color-mix(in oklch, var(--border) 100%, transparent) 80%,
     transparent
   );
+}
+
+@media (min-width: 640px) {
+  .section-rule {
+    width: min(100% - 2rem, var(--content-max));
+  }
 }
 
 /* Film grain — fixed, non-interactive, GPU-friendly */
