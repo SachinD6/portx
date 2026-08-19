@@ -56,7 +56,20 @@ export function KimiIcon(props: IconProps) {
   );
 }
 
-export type AiBrand = "xai" | "anthropic" | "openai" | "moonshot";
+/** Zhipu / GLM — layered hex ring */
+export function ZhipuIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
+      <path d="M12 2.5 20.5 7.25v9.5L12 21.5 3.5 16.75v-9.5L12 2.5Z" />
+      <path
+        d="M12 7 16.25 9.4v4.7L12 16.5 7.75 14.1V9.4L12 7Z"
+        opacity="0.55"
+      />
+    </svg>
+  );
+}
+
+export type AiBrand = "xai" | "anthropic" | "openai" | "moonshot" | "zhipu";
 
 export function AiBrandIcon({
   brand,
@@ -74,6 +87,8 @@ export function AiBrandIcon({
       return <OpenaiIcon className={className} />;
     case "moonshot":
       return <KimiIcon className={className} />;
+    case "zhipu":
+      return <ZhipuIcon className={className} />;
     default:
       return null;
   }

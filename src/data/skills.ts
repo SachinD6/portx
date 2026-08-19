@@ -25,6 +25,17 @@ export const skills: SkillCluster[] = [
     items: ["Sanity", "Payload CMS", "Medusa", "Headless commerce"],
   },
   {
+    id: "ai-agents",
+    title: "AI & agents",
+    items: [
+      "AI agents",
+      "RAG pipelines",
+      "LLM tooling",
+      "Autonomous tooling",
+      "Session tooling",
+    ],
+  },
+  {
     id: "craft",
     title: "Product & craft",
     items: [

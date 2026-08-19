@@ -60,21 +60,4 @@ export const experience: ExperienceItem[] = [
       "AI agents",
     ],
   },
-  {
-    id: "open-source-systems",
-    company: "Open-source & systems projects",
-    role: "Engineer",
-    location: "Remote",
-    locationType: "Remote",
-    employmentType: "Part-time",
-    start: "2026",
-    end: "Present",
-    description:
-      "Side systems work on developer tooling—architecture generation and native utilities.",
-    highlights: [
-      "Project Copilot: architecture, ERD canvas, and Gemini-assisted planning",
-      "Renamesit (in development): Rust/Tauri desktop utility for convert-by-rename workflows",
-    ],
-    stack: ["TypeScript", "Next.js", "React", "Firebase", "Rust", "Tauri"],
-  },
 ];

@@ -6,8 +6,8 @@ import type { AiModel, NowUsingConfig } from "./types";
  */
 export const aiModels: AiModel[] = [
   {
-    id: "grok-4-5",
-    name: "Grok 4.5",
+    id: "grok-4-6",
+    name: "Grok 4.6",
     provider: "xAI",
     brand: "xai",
     role: "Primary for product thinking, code, and shipping.",
@@ -24,20 +24,11 @@ export const aiModels: AiModel[] = [
     status: "active",
   },
   {
-    id: "claude-sonnet",
-    name: "Claude Sonnet",
-    provider: "Anthropic",
-    brand: "anthropic",
-    role: "Deep review, careful refactors, design critique.",
-    accent: "muted",
-    status: "active",
-  },
-  {
-    id: "gpt-5",
-    name: "GPT-5",
-    provider: "OpenAI",
-    brand: "openai",
-    role: "General reasoning and quick spikes.",
+    id: "glm-5-3",
+    name: "GLM 5.3",
+    provider: "Zhipu AI",
+    brand: "zhipu",
+    role: "Coding and long-horizon agentic tasks.",
     accent: "muted",
     status: "active",
   },
@@ -46,7 +37,7 @@ export const aiModels: AiModel[] = [
 export const nowUsing: NowUsingConfig = {
   label: "Now using",
   liveLabel: "Live",
-  primaryId: "grok-4-5",
+  primaryId: "grok-4-6",
   models: aiModels,
 };
 

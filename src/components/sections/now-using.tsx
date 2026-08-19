@@ -4,16 +4,14 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
 
 import { ThinkingOrb, type OrbState } from "@/components/effects/thinking-orb";
-import { AiBrandIcon } from "@/components/icons/ai-brand-icons";
 import { getPrimaryModel, nowUsing } from "@/data";
 import { cn } from "@/lib/utils";
 
 /** Map each model to an agent-style orb verb */
 const modelOrbState: Record<string, OrbState> = {
-  "grok-4-5": "working",
+  "grok-4-6": "working",
   "kimi-k3": "searching",
-  "claude-sonnet": "composing",
-  "gpt-5": "solving",
+  "glm-5-3": "composing",
 };
 
 /**
@@ -25,13 +23,12 @@ export function NowUsingWidget({ className }: { className?: string }) {
   const primary = getPrimaryModel();
   const roster = nowUsing.models.filter((m) => m.status === "active");
   const [focusId, setFocusId] = useState(primary.id);
-  const [paused, setPaused] = useState(false);
 
   const focused = roster.find((m) => m.id === focusId) ?? primary;
   const orbState = modelOrbState[focused.id] ?? "listening";
 
   useEffect(() => {
-    if (reduceMotion || paused || roster.length < 2) return;
+    if (reduceMotion || roster.length < 2) return;
     const id = window.setInterval(() => {
       setFocusId((current) => {
         const idx = roster.findIndex((m) => m.id === current);
@@ -41,7 +38,7 @@ export function NowUsingWidget({ className }: { className?: string }) {
     }, 5200);
     return () => window.clearInterval(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps -- stable data module
-  }, [reduceMotion, paused, roster.length]);
+  }, [reduceMotion, roster.length]);
 
   return (
     <div
@@ -93,40 +90,6 @@ export function NowUsingWidget({ className }: { className?: string }) {
           </div>
         </div>
       </div>
-
-      <ul
-        className="flex shrink-0 items-center justify-end gap-0.5 border-t border-border/60 pt-1.5 sm:border-0 sm:pt-0"
-        role="list"
-      >
-        {roster.map((model) => {
-          const isActive = model.id === focused.id;
-          return (
-            <li key={model.id}>
-              <button
-                type="button"
-                onClick={() => {
-                  setFocusId(model.id);
-                  setPaused(true);
-                }}
-                title={model.name}
-                aria-label={model.name}
-                aria-pressed={isActive}
-                className={cn(
-                  "flex size-9 items-center justify-center rounded-full transition-colors duration-200 sm:size-7",
-                  isActive
-                    ? "bg-foreground text-background"
-                    : "text-muted-foreground hover:bg-background hover:text-foreground",
-                )}
-              >
-                <AiBrandIcon
-                  brand={model.brand}
-                  className="size-3.5 sm:size-3"
-                />
-              </button>
-            </li>
-          );
-        })}
-      </ul>
     </div>
   );
 }
