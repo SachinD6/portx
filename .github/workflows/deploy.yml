@@ -300,6 +300,28 @@ jobs:
             echo
           done
 
+      - name: Create DNS records
+        run: |
+          set -e
+          ZONE_ID=$(curl -sS \
+            "https://api.cloudflare.com/client/v4/zones?name=sxch.dev" \
+            -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
+            | python3 -c 'import sys,json; d=json.load(sys.stdin); print((d.get("result") or [{}])[0].get("id", ""))')
+          echo "zone_id=$ZONE_ID"
+          if [ -z "$ZONE_ID" ] || [ "$ZONE_ID" = "None" ]; then
+            echo "::warning::sxch.dev zone not found on this account — add the DNS record manually."
+            exit 0
+          fi
+          for d in sxch.dev www.sxch.dev; do
+            echo "Creating CNAME $d -> ${PAGES_PROJECT_NAME}-2za.pages.dev"
+            curl -sS -X POST \
+              "https://api.cloudflare.com/client/v4/zones/${ZONE_ID}/dns_records" \
+              -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
+              -H "Content-Type: application/json" \
+              --data "{\"type\":\"CNAME\",\"name\":\"$d\",\"content\":\"${PAGES_PROJECT_NAME}-2za.pages.dev\",\"proxied\":true,\"ttl\":1}"
+            echo
+          done
+
   # ─────────────────────────────────────────────
   # Notify failure
   # ─────────────────────────────────────────────
