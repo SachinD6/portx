@@ -17,7 +17,7 @@ export const socials: SocialLink[] = [
   {
     id: "x",
     label: "X",
-    href: "https://x.com/sachinduhan",
+    href: "https://x.com/sxch0",
     icon: "x",
   },
   {

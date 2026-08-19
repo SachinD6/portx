@@ -4,7 +4,6 @@ import type { CommandAction, NavItem } from "./types";
 export const navigation: NavItem[] = [
   { id: "experience", label: "Experience", href: "/#experience" },
   { id: "work", label: "Work", href: "/#work" },
-  { id: "blog", label: "Writing", href: "/blog", page: true },
   { id: "contact", label: "Contact", href: "/#contact" },
 ];
 
@@ -14,7 +13,6 @@ export const navigation: NavItem[] = [
 export const homeSections: NavItem[] = [
   { id: "experience", label: "Experience", href: "#experience" },
   { id: "work", label: "Work", href: "#work" },
-  { id: "writing", label: "Writing", href: "#writing" },
   { id: "stack", label: "Stack", href: "#stack" },
   { id: "contact", label: "Contact", href: "#contact" },
 ];
@@ -35,14 +33,6 @@ export const commandActions: CommandAction[] = [
     action: "scroll",
     sectionId: "work",
     keywords: ["projects", "portfolio", "case"],
-  },
-  {
-    id: "goto-writing",
-    label: "Go to Writing",
-    description: "Essays & notes",
-    href: "/blog",
-    action: "navigate",
-    keywords: ["blog", "posts"],
   },
   {
     id: "goto-contact",

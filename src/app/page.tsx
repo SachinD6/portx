@@ -4,10 +4,9 @@ import { Experience } from "@/components/sections/experience";
 import { ProfileHero } from "@/components/sections/profile-hero";
 import { SelectedWork } from "@/components/sections/selected-work";
 import { Skills } from "@/components/sections/skills";
-import { Writing } from "@/components/sections/writing";
 
 /**
- * Profile (w/ AI bar) → Experience → Work → Writing → Stack → Contact
+ * Profile (w/ AI bar) → Experience → Work → Stack → Contact
  */
 export default function Home() {
   return (
@@ -17,8 +16,6 @@ export default function Home() {
       <Experience />
       <SectionDivider />
       <SelectedWork />
-      <SectionDivider />
-      <Writing />
       <SectionDivider />
       <Skills />
       <Contact />

@@ -5,8 +5,8 @@ import type { ProductConfig } from "./types";
  * Swap bookingUrl for your real Cal.com (or Calendly) link.
  */
 export const product: ProductConfig = {
-  bookingUrl: "https://cal.com/sachinduhan/15min",
-  bookingLabel: "Book a 15‑min call",
+  bookingUrl: "",
+  bookingLabel: "",
   analytics: {
     // Set provider + domain when ready (Plausible / Umami). "none" = no script.
     provider: "none",

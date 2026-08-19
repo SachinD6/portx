@@ -4,7 +4,7 @@ export const site: SiteConfig = {
   name: "Sachin Duhan",
   title: "Sachin Duhan — Product Engineer",
   description:
-    "Product engineer shipping FresherGo (12k+ monthly visitors), TopTools, and systems work in React, Next.js, and cloud. Case studies with real outcomes—not a resume dump.",
+    "Product engineer shipping headless commerce, autonomous AI-agent tooling, and open-source developer utilities—FresherGo (12k+ monthly visitors), TopTools, and pi-resume-harness.",
   url: "https://portx-2za.pages.dev",
   locale: "en_US",
   keywords: [
@@ -12,7 +12,8 @@ export const site: SiteConfig = {
     "Product Engineer",
     "FresherGo",
     "TopTools",
-    "RepoAtlas",
+    "pi-resume-harness",
+    "AI agents",
     "React",
     "Next.js",
     "TypeScript",
