@@ -280,6 +280,27 @@ jobs:
           fi
 
   # ─────────────────────────────────────────────
+  # Attach custom domains (idempotent — CF no-ops on already-attached)
+  # ─────────────────────────────────────────────
+  configure-domain:
+    name: Attach custom domains
+    needs: deploy-production
+    if: always() && needs.deploy-production.result == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Attach sxch.dev and www
+        run: |
+          for d in sxch.dev www.sxch.dev; do
+            echo "Attaching $d ..."
+            curl -sS -X POST \
+              "https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/pages/projects/${PAGES_PROJECT_NAME}/domains" \
+              -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
+              -H "Content-Type: application/json" \
+              --data "{\"name\":\"$d\"}"
+            echo
+          done
+
+  # ─────────────────────────────────────────────
   # Notify failure
   # ─────────────────────────────────────────────
   notify-failure:
