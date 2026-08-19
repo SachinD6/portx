@@ -66,7 +66,7 @@ export function MagneticButton({
 
   if (href) {
     return (
-      <Magnetic>
+      <Magnetic className={className}>
         <a
           href={href}
           className={sharedClass}
@@ -81,7 +81,7 @@ export function MagneticButton({
   }
 
   return (
-    <Magnetic>
+    <Magnetic className={className}>
       <button type={type} onClick={onClick} className={sharedClass}>
         {content}
       </button>

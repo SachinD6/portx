@@ -26,8 +26,8 @@ export const blogPosts: BlogPost[] = [
     tags: ["career", "positioning"],
     body: [
       "Generic labels attract generic attention. “Full-stack” can mean anything from CMS tweaks to distributed systems. Hiring managers scanning for a product-facing React engineer will bounce if they cannot map you to the role.",
-      "Niching is not fake specialization. It is choosing the work you want more of and making the homepage about that. You can still mention systems depth—but lead with the interface craft if that is the job you want.",
-      "My positioning here: product engineer, frontend-focused, comfortable owning APIs and performance when the product needs it. The case studies and writing reinforce that lane.",
+      "Niching is not fake specialization. It is choosing the work you want more of and making the homepage about that. You can still mention systems depth—but lead with the products and outcomes if that is the job you want.",
+      "My positioning here: product engineer who ships real products (FresherGo, TopTools) end-to-end—interfaces, data, SEO, and growth—with systems depth when the product needs it. The case studies reinforce that lane.",
       "If your site still says “passionate full-stack developer who loves clean code,” rewrite the hero until a stranger could place you in a hiring stack without guessing.",
     ],
   },

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 
 import { SiteAnalytics } from "@/components/analytics/site-analytics";
@@ -30,6 +30,17 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = buildMetadata();
+
+/** Enables env(safe-area-inset-*) on notched phones */
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f7f4ef" },
+    { media: "(prefers-color-scheme: dark)", color: "#2a2622" },
+  ],
+};
 
 export default function RootLayout({
   children,

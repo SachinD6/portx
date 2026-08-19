@@ -2,6 +2,7 @@
 
 import { toast } from "sonner";
 
+import { MetalCta } from "@/components/effects/metal-cta";
 import {
   GithubIcon,
   GlobeIcon,
@@ -56,16 +57,23 @@ export function Contact() {
               </p>
             </div>
 
-            <div className="mt-5 flex flex-col gap-2.5 sm:flex-row sm:flex-wrap">
+            <div className="mt-5 flex flex-col gap-2.5 sm:flex-row sm:flex-wrap sm:items-center">
               {product.bookingUrl ? (
-                <MagneticButton href={product.bookingUrl} external>
-                  {product.bookingLabel}
-                </MagneticButton>
+                <MetalCta className="w-full sm:w-auto">
+                  <MagneticButton
+                    href={product.bookingUrl}
+                    external
+                    className="w-full sm:w-auto"
+                  >
+                    {product.bookingLabel}
+                  </MagneticButton>
+                </MetalCta>
               ) : null}
               <MagneticButton
                 onClick={handleCopyEmail}
                 variant={product.bookingUrl ? "secondary" : "primary"}
                 showArrow={!product.bookingUrl}
+                className="w-full sm:w-auto"
               >
                 Copy email
               </MagneticButton>
@@ -75,6 +83,7 @@ export function Contact() {
                   variant="ghost"
                   external
                   showArrow={false}
+                  className="w-full sm:w-auto"
                 >
                   Resume
                 </MagneticButton>

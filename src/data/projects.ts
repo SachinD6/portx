@@ -2,136 +2,230 @@ import type { Project } from "./types";
 
 export const projects: Project[] = [
   {
-    id: "portx",
-    slug: "portx",
-    title: "Portx",
+    id: "freshergo",
+    slug: "freshergo",
+    title: "FresherGo",
     year: "2026",
-    role: "Product & Engineering",
-    metric: "Data-driven portfolio system",
+    role: "Founder · Product & Engineering",
+    metric: "12k+ visitors / month",
     summary:
-      "A minimal portfolio template that treats personal branding like a product—stories, tooling, and motion—not a resume dump.",
+      "Entry-level tech jobs platform with verified fresher, internship, and remote roles pulled from official company pages—driving 12k+ monthly visitors.",
     problem:
-      "Most developer portfolios look identical: hero, three project cards, GitHub links, no story. Recruiters bounce in seconds because they cannot tell what you owned or what changed because of you.",
+      "Early-career candidates waste time on spammy boards, reposts, and roles that never existed. “Entry-level” listings often hide 3+ years of experience, and many links lead to dead or third-party scrapes—not the company’s own careers page.",
     approach:
-      "I framed the site as a reusable product: a typed data layer for content, production-grade lint/format/CI, and interaction patterns that feel intentional. Case studies lead with problem → approach → impact instead of screenshots alone.",
+      "Built FresherGo as a product for freshers first: index openings that map to 0–2 years, internships, and remote tracks; prefer apply paths that land on official company pages; and make search by role, location, and remote the default happy path—not a dump of every job on the internet.",
     uniqueness:
-      "Command palette navigation, island nav, and a content model you edit without touching UI. The portfolio itself is proof of craft—not a static brochure of other work.",
+      "Verification and freshness over inventory size. The product is tuned for entry-level discovery (filters, role hubs, company pages) with SEO that compounds organic traffic instead of paid acquisition alone.",
     outcome:
-      "A template-ready system others can fork, with clear positioning, measurable project stories, and a path for blog/labs so the site becomes a resource—not a one-time visit.",
+      "A live platform at freshergo.com with thousands of open roles, weekly new listings, and sustained organic demand—over 12k visitors per month without treating the site as a throwaway side project.",
     impact: [
-      "Content swaps via src/data without UI rewrites",
-      "PR previews + production deploy pipeline on Cloudflare Pages",
-      "Case-study structure recruiters can scan in under a minute",
+      "Over 12,000 visitors per month",
+      "1,600+ open roles indexed with fresher / internship / remote focus",
+      "Apply paths oriented to official company pages, not dead scrapes",
+      "Role and company hubs that compound organic search traffic",
     ],
     process: [
       {
-        title: "Frame the product",
-        body: "Defined who the site is for (hiring managers + collaborators) and the 10-second promise: who I am, what I ship, how to act.",
+        title: "Name the job-to-be-done",
+        body: "Freshers need trustworthy entry-level roles fast—not another generic board. Scoped to tech-adjacent openings with clear experience bands and remote/internship paths.",
       },
       {
-        title: "Story over inventory",
-        body: "Rebuilt projects as case studies with problem, approach, uniqueness, and numbers—not a GitHub dump.",
+        title: "Ship the discovery surface",
+        body: "Search, filters (0–1 yr, 1–2 yr, remote, internship), role hubs, and company pages so people can browse the way they already think about applying.",
       },
       {
-        title: "Ship like a SaaS",
-        body: "Lint, format, hooks, CI, Pages deploys, analytics hooks, and a booking CTA so the journey ends with a clear next step.",
+        title: "Grow like a product",
+        body: "Invested in SEO, listing freshness, and resources (guides, salary context) so traffic compounds—then kept the pipeline honest with verified, company-sourced links.",
       },
     ],
     stack: [
       "Next.js",
       "TypeScript",
+      "React",
+      "Node.js",
+      "PostgreSQL",
       "Tailwind CSS",
-      "Motion",
-      "Cloudflare Pages",
+      "SEO",
     ],
     links: [
       {
-        label: "Source",
-        href: "https://github.com/SachinD6/portx",
+        label: "Live site",
+        href: "https://freshergo.com",
         external: true,
       },
     ],
     featured: true,
   },
   {
-    id: "pulse-api",
-    slug: "pulse-api-gateway",
-    title: "Pulse API Gateway",
-    year: "2025",
-    role: "Backend & Platform",
-    metric: "−42% p95 latency",
+    id: "toptools",
+    slug: "toptools",
+    title: "TopTools",
+    year: "2026",
+    role: "Founder · Product & Engineering",
+    metric: "AI agents that research → build → SEO",
     summary:
-      "A thin gateway that unblocked growth when a monolith’s request path started failing under real traffic.",
+      "In-progress tools site for finance and career utilities—an autonomous product that can research demand, build tools, open PRs, and ship SEO itself.",
     problem:
-      "A product team was scaling features faster than the request path could handle. p95 latency climbed, auth was duplicated across services, and incidents took too long because there was no shared tracing story.",
+      "Most “tools” sites are either hand-built one-offs that never expand or thin AI slop with no keyword strategy. Scaling a library of useful finance and career tools by hand does not keep up with search demand—or quality bar.",
     approach:
-      "Designed a focused gateway: caching on hot reads, centralized auth and rate limits, and structured tracing. Kept the product UI stable while the platform layer absorbed complexity.",
+      "Designing TopTools as a self-growing product: agents research keywords (full research, volume, keyword difficulty, CPM), decide whether a tool is worth building, implement the tool, open a PR, and run a complete SEO pass once selected. Humans review; the loop is built for continuous shipping.",
     uniqueness:
-      "Treated the gateway as a product surface for other engineers—clear contracts, boring defaults, and observability that reduced guesswork during incidents.",
+      "Not a chatbot wrapper and not a static directory. The system owns the full pipeline from opportunity scoring to implementation and distribution—so the site can compound without every page starting from a blank editor.",
     outcome:
-      "Hot paths got faster, six services shared one auth/rate-limit model, and on-call had traces instead of log archaeology.",
+      "Work in progress / shipping narrative: core agent loop and product framing in flight, with finance and career tools as the first verticals. Built to grow itself once the research → build → PR → SEO path is reliable.",
     impact: [
-      "−42% p95 latency on hot read paths",
-      "Unified auth + rate limits across 6 services",
-      "Structured tracing reduced incident MTTR",
+      "Agent loop designed around volume, KD, and CPM—not vibes",
+      "Selected tools go from decision → implementation → PR → SEO",
+      "Finance & career verticals chosen for durable search intent",
+      "Human-in-the-loop review so autonomy does not mean unreviewed slop",
     ],
     process: [
       {
-        title: "Measure the pain",
-        body: "Mapped the worst endpoints and failure modes before writing code—latency, auth sprawl, and blind spots in production.",
+        title: "Define the autonomous loop",
+        body: "Mapped stages: keyword research, opportunity scoring, build decision, implementation, PR, and SEO—each with a clear success check before the next stage.",
       },
       {
-        title: "Thin slice",
-        body: "Shipped caching + auth for one critical path first, then expanded with confidence from real metrics.",
+        title: "Pick verticals with intent",
+        body: "Finance and career tools first—high intent, repeatable formats, and room for a library that compounds in search.",
       },
       {
-        title: "Make it operable",
-        body: "Tracing and rate-limit visibility so the next person could debug without tribal knowledge.",
+        title: "Ship, then expand",
+        body: "Prove one tool end-to-end through the agent pipeline, then widen the catalog without rewriting the growth system each time.",
       },
     ],
-    stack: ["Node.js", "TypeScript", "Redis", "PostgreSQL", "Docker"],
-    links: [{ label: "Discuss", href: "/#contact", external: false }],
+    stack: [
+      "TypeScript",
+      "Next.js",
+      "AI agents",
+      "SEO",
+      "Node.js",
+      "PostgreSQL",
+    ],
+    links: [
+      {
+        label: "Discuss",
+        href: "/#contact",
+        external: false,
+      },
+    ],
     featured: true,
   },
   {
-    id: "clarity-dashboard",
-    slug: "clarity-dashboard",
-    title: "Clarity Dashboard",
-    year: "2025",
-    role: "Full-stack product",
-    metric: "3× faster reporting",
+    id: "repoatlas",
+    slug: "repoatlas",
+    title: "RepoAtlas",
+    year: "2026",
+    role: "Product & Engineering",
+    metric: "AST + knowledge graph code understanding",
     summary:
-      "A reporting surface for ops teams that replaced spreadsheet chaos with role-aware defaults and keyboard-first tables.",
+      "Code understanding that maps structure with AST parsing and knowledge graphs—so answers come with context, not chat hallucinations.",
     problem:
-      "Ops spent hours stitching spreadsheets for the same weekly questions. Tools existed, but they mirrored the database—not the decisions people needed to make.",
+      "Onboarding onto a large codebase is slow, and “chat with your repo” tools often answer without real structural context. File lists and embeddings alone miss relationships between modules, functions, and call paths.",
     approach:
-      "Interviewed how reports were actually assembled, then designed views around jobs-to-be-done: role defaults, export paths, and accessible tables that worked without a mouse.",
+      "Built RepoAtlas to parse structure (AST) and store relationships in a knowledge graph (Neo4j), with heavy lifting off the request path via AWS SQS and Redis for real-time ingestion. Questions hit a graph-backed model of the repo—not a bag of chunks.",
     uniqueness:
-      "Optimized for the weekly ritual, not the schema. Empty states and exports were first-class, not afterthoughts.",
+      "Not just a chat wrapper: structure-first understanding. Ingestion is treated as a pipeline (queues, cache, storage) so analysis stays usable on non-toy repositories.",
     outcome:
-      "Reporting time collapsed from hours to minutes; support tickets about “where is my view?” dropped as roles mapped to sensible defaults.",
+      "A working product surface for exploring and questioning codebases with graph context, backed by Next.js, Neo4j, PostgreSQL, Redis, and SQS—demo live, source open.",
     impact: [
-      "Reporting time dropped from hours to minutes",
-      "Role-based views reduced support tickets",
-      "Keyboard-first, accessible tables for daily use",
+      "AST + Neo4j graph model for file/function relationships",
+      "AWS SQS + Redis ingestion path for real-time heavy lifting",
+      "Answers grounded in structure, not free-floating embeddings alone",
     ],
     process: [
       {
-        title: "Watch the ritual",
-        body: "Shadowed how people built the weekly report—then deleted every field that didn’t show up in that flow.",
+        title: "Model the graph",
+        body: "Defined what nodes and edges matter for Q&A—files, symbols, and relationships—before wiring the UI chat layer.",
       },
       {
-        title: "Defaults over configuration",
-        body: "Role-aware home views so most users never touched filters.",
+        title: "Pipeline the hard work",
+        body: "Moved parsing and ingestion behind SQS and Redis so the product stays responsive while analysis catches up.",
       },
       {
-        title: "Ship the edges",
-        body: "Exports, empty states, and a11y were part of v1—not a later polish pass.",
+        title: "Ship a usable surface",
+        body: "Next.js product UI so engineers can explore and ask with context, not only run scripts locally.",
       },
     ],
-    stack: ["React", "Next.js", "tRPC", "PostgreSQL", "Tailwind CSS"],
-    links: [{ label: "Discuss", href: "/#contact", external: false }],
+    stack: [
+      "Next.js",
+      "TypeScript",
+      "Neo4j",
+      "PostgreSQL",
+      "Redis",
+      "AWS SQS",
+      "Cloudflare R2",
+    ],
+    links: [
+      {
+        label: "Live demo",
+        href: "https://repoatlas.vercel.app",
+        external: true,
+      },
+      {
+        label: "Source",
+        href: "https://github.com/SachinD6/repoatlas",
+        external: true,
+      },
+    ],
     featured: true,
+  },
+  {
+    id: "project-copilot",
+    slug: "project-copilot",
+    title: "Project Copilot",
+    year: "2025",
+    role: "Product & Engineering",
+    metric: "Idea → architecture, ERD, roadmap",
+    summary:
+      "Describe an idea and get system architecture, database schema, and a roadmap—plus a custom drag-and-drop ERD canvas.",
+    problem:
+      "Greenfield projects die in the setup phase: vague requirements, no ERD, no architecture sketch, and hours lost before the first useful commit. Generic chat dumps walls of text that never become a plan you can act on.",
+    approach:
+      "Built Project Copilot around structured outputs: architecture, schema, and roadmap from a short description, with a from-scratch drag-and-drop ERD canvas and Gemini for generation. UI is intentionally opinionated so plans feel concrete.",
+    uniqueness:
+      "Custom ERD canvas (not a bolt-on third-party only) paired with AI generation—turns fuzzy ideas into technical artifacts you can edit, not a one-shot chat transcript.",
+    outcome:
+      "A developer-facing tool that compresses early planning: architecture narrative, schema, roadmap, and an interactive ERD in one flow—source and demo available.",
+    impact: [
+      "Architecture + schema + roadmap from a short product description",
+      "Custom drag-and-drop ERD canvas built in-product",
+      "Gemini-assisted generation with a focused developer UI",
+    ],
+    process: [
+      {
+        title: "Structure the outputs",
+        body: "Defined the minimum plan artifacts—architecture, ERD, roadmap—so generation always lands in usable slots.",
+      },
+      {
+        title: "Build the canvas",
+        body: "Implemented a React Flow–based ERD editor so schemas are visual and editable, not static markdown tables.",
+      },
+      {
+        title: "Close the loop with AI",
+        body: "Wired Gemini to seed the plan, then let users refine structure in the canvas and docs.",
+      },
+    ],
+    stack: [
+      "Next.js",
+      "React",
+      "Firebase",
+      "Gemini AI",
+      "React Flow",
+      "Docker",
+    ],
+    links: [
+      {
+        label: "Live demo",
+        href: "https://project-copilot-psi.vercel.app",
+        external: true,
+      },
+      {
+        label: "Source",
+        href: "https://github.com/SachinD6/project-copilot",
+        external: true,
+      },
+    ],
+    featured: false,
   },
 ];
 

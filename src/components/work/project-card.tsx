@@ -4,6 +4,7 @@ import { ArrowUpRight } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
 
+import { ThinkingOrb } from "@/components/effects/thinking-orb";
 import type { Project } from "@/data";
 import { springSoft } from "@/lib/motion";
 import { cn } from "@/lib/utils";
@@ -13,8 +14,12 @@ type ProjectCardProps = {
   index: number;
 };
 
+/** Only TopTools gets the agent orb — signal autonomy without spamming every card */
+const AGENT_PROJECT_IDS = new Set(["toptools"]);
+
 export function ProjectCard({ project, index }: ProjectCardProps) {
   const reduceMotion = useReducedMotion();
+  const showAgentOrb = AGENT_PROJECT_IDS.has(project.id);
 
   return (
     <motion.article
@@ -29,16 +34,23 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
       }
       className="group double-bezel"
     >
-      <div className="double-bezel-inner relative p-5 sm:p-6">
+      <div className="double-bezel-inner relative p-4 sm:p-6">
         <div className="flex flex-wrap items-start justify-between gap-3">
-          <div className="min-w-0 space-y-2.5">
+          <div className="min-w-0 flex-1 space-y-2.5">
             {project.metric ? (
-              <p className="inline-flex rounded-full border border-border bg-background/70 px-2.5 py-1 text-[10px] font-medium tracking-[0.12em] text-muted-foreground uppercase">
+              <p className="inline-flex max-w-full items-center gap-2 rounded-full border border-border bg-background/70 px-2.5 py-1 text-[10px] font-medium tracking-[0.12em] break-words text-muted-foreground uppercase">
+                {showAgentOrb ? (
+                  <ThinkingOrb
+                    state="shaping"
+                    size={20}
+                    aria-label="Agent pipeline active"
+                  />
+                ) : null}
                 {project.metric}
               </p>
             ) : null}
-            <div>
-              <h3 className="font-display text-xl tracking-tight text-foreground sm:text-2xl">
+            <div className="min-w-0">
+              <h3 className="font-display text-xl tracking-tight break-words text-foreground sm:text-2xl">
                 <Link
                   href={`/work/${project.slug}`}
                   className="transition-colors hover:text-primary"
@@ -54,11 +66,11 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
                 <span className="font-mono text-xs">{project.year}</span>
               </p>
             </div>
-            <p className="max-w-prose text-sm leading-relaxed text-muted-foreground">
+            <p className="max-w-prose text-sm leading-relaxed break-words text-muted-foreground">
               {project.summary}
             </p>
           </div>
-          <span className="font-mono text-xs text-muted-foreground">
+          <span className="shrink-0 font-mono text-xs text-muted-foreground">
             {String(index + 1).padStart(2, "0")}
           </span>
         </div>
@@ -73,7 +85,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
                 className="mt-2 size-1 shrink-0 rounded-full bg-primary/70"
                 aria-hidden="true"
               />
-              <span>{item}</span>
+              <span className="min-w-0 break-words">{item}</span>
             </li>
           ))}
         </ul>
@@ -89,11 +101,11 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           ))}
         </div>
 
-        <div className="mt-5 flex flex-wrap gap-2">
+        <div className="mt-5 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
           <Link
             href={`/work/${project.slug}`}
             className={cn(
-              "inline-flex items-center gap-1.5 rounded-full bg-primary px-3.5 py-2 text-sm font-medium text-primary-foreground",
+              "inline-flex min-h-11 w-full items-center justify-center gap-1.5 rounded-full bg-primary px-3.5 py-2.5 text-sm font-medium text-primary-foreground sm:w-auto sm:justify-start sm:py-2",
               "transition-opacity hover:opacity-90",
             )}
           >
@@ -107,7 +119,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
               {...(link.external
                 ? { target: "_blank", rel: "noopener noreferrer" }
                 : {})}
-              className="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              className="inline-flex min-h-11 w-full items-center justify-center gap-1.5 rounded-full border border-border px-3 py-2.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground sm:w-auto sm:justify-start sm:py-2"
             >
               {link.label}
             </a>
