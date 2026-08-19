@@ -143,18 +143,19 @@ jobs:
         id: deploy
         shell: bash
         run: |
-          set -euo pipefail
+          set -uo pipefail
 
           # Project may be served as portx-2za.pages.dev; still deploy by project name.
-          OUTPUT=$(wrangler pages deploy out \
+          OUTPUT="$(wrangler pages deploy out \
             --project-name="${PAGES_PROJECT_NAME}" \
             --branch="${{ steps.meta.outputs.branch }}" \
             --commit-dirty=true \
             --commit-hash="${{ github.sha }}" \
             --commit-message="${{ steps.meta.outputs.commit_message }}" \
-            2>&1)
-
+            2>&1)"
+          status=$?
           echo "$OUTPUT"
+          [ "$status" -eq 0 ] || exit "$status"
 
           # Parse deployment URL from wrangler output
           URL=$(echo "$OUTPUT" | grep -Eo 'https://[a-zA-Z0-9.-]+\.pages\.dev' | tail -n1 || true)
@@ -251,17 +252,18 @@ jobs:
         id: deploy
         shell: bash
         run: |
-          set -euo pipefail
+          set -uo pipefail
 
-          OUTPUT=$(wrangler pages deploy out \
+          OUTPUT="$(wrangler pages deploy out \
             --project-name="${PAGES_PROJECT_NAME}" \
             --branch=production \
             --commit-dirty=true \
             --commit-hash="${{ github.sha }}" \
             --commit-message="Production ${{ github.sha }}" \
-            2>&1)
-
+            2>&1)"
+          status=$?
           echo "$OUTPUT"
+          [ "$status" -eq 0 ] || exit "$status"
 
           URL=$(echo "$OUTPUT" | grep -Eo 'https://[a-zA-Z0-9.-]+\.pages\.dev' | tail -n1 || true)
           if [ -z "$URL" ]; then
