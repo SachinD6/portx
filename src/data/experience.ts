@@ -35,7 +35,7 @@ export const experience: ExperienceItem[] = [
   {
     id: "independent-products",
     company: "Independent products",
-    role: "Founder · Product Engineer",
+    role: "Founder · Full Stack Engineer",
     location: "India",
     locationType: "Remote",
     employmentType: "Part-time",

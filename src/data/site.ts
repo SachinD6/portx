@@ -2,14 +2,14 @@ import type { SiteConfig } from "./types";
 
 export const site: SiteConfig = {
   name: "Sachin Duhan",
-  title: "Sachin Duhan — Product Engineer",
+  title: "Sachin Duhan — Full Stack Engineer",
   description:
-    "Product engineer shipping headless commerce, autonomous AI-agent tooling, and open-source developer utilities—FresherGo (12k+ monthly visitors), TopTools, and pi-resume-harness.",
+    "Full stack engineer shipping headless commerce, autonomous AI-agent tooling, and open-source developer utilities—FresherGo (12k+ monthly visitors), TopTools, and pi-resume-harness.",
   url: "https://sxch.dev",
   locale: "en_US",
   keywords: [
     "Sachin Duhan",
-    "Product Engineer",
+    "Full Stack Engineer",
     "FresherGo",
     "TopTools",
     "pi-resume-harness",
